@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChildrenApplication {
+public class VolunteerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ChildrenApplication.class, args);
+        SpringApplication.run(VolunteerApplication.class, args);
     }
 }

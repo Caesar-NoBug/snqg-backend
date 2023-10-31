@@ -3,4 +3,4 @@ spring:
     name: children
 
 server:
-  port: 10102
+  port: 23456

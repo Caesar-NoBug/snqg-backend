@@ -1,2 +1,8 @@
-package com.snqg.domain.response.children;public class ChildrenVO {
+package com.snqg.domain.response.children;
+
+import lombok.Data;
+
+@Data
+public class ChildrenVO {
+
 }

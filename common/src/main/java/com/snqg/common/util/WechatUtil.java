@@ -4,9 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.snqg.common.exception.ThrowUtil;
 import com.snqg.domain.enums.ErrorCode;
 import com.snqg.domain.response.wx.WxLoginResponse;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
 import javax.annotation.Resource;
 import java.util.Objects;
 
