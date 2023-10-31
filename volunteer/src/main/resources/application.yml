@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: children
+
+server:
+  port: 12345
