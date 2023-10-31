@@ -8,12 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api
-@RequestMapping("/children")
+@Api(tags = "volunteer")
+@RequestMapping("/volunteer")
 public class VolunteerController {
 
-    @PostMapping("/login/{code}")
-    public ChildrenVO login(@PathVariable String code) {
-
-    }
 }

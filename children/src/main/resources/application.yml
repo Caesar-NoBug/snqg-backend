@@ -1,6 +1,16 @@
 spring:
   application:
     name: children
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.130.19.151:13306/snqg
+    username: root
+    password: 5eqPGg62I4
 
+  data:
+    redis:
+      host: 8.130.19.151
+      port: 16379
+      database: 0
 server:
   port: 23456

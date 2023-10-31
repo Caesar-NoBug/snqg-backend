@@ -1,6 +1,6 @@
 spring:
   application:
-    name: volunteer
+    name: admin
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://8.130.19.151:13306/snqg
@@ -12,5 +12,6 @@ spring:
       host: 8.130.19.151
       port: 16379
       database: 0
+
 server:
-  port: 34567
+  port: 12345
