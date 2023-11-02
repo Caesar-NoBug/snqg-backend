@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.snqg</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>domain</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--自动配置-->
@@ -61,6 +61,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

@@ -11,6 +11,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 public class SwaggerConfig {
     @Bean
     Docket systemIndexApi(){
-        return SwaggerCore.defaultDocketBuilder("接口领域模型定义","com.snqg.controller","children");
+        return SwaggerCore.defaultDocketBuilder("接口领域模型定义","com.snqg","children");
     }
 }

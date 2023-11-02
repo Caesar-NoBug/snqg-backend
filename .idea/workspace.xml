@@ -5,27 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/admin/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/snqg/AdminApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/snqg/config/SwaggerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/java/com/snqg/controller/AdminController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/util/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/util/PasswordEncoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/util/RedisCache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/util/RedisJsonSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/constant/StrConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/children/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/snqg/AdminApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/snqg/controller/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/ChildrenApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/ChildrenApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/children/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/children/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/controller/ChildrenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/children/controller/ChildrenController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/config/CommonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/config/CommonConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/util/WechatUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/com/snqg/common/util/WxUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/request/children/WxLoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/request/wx/WxLoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/response/children/ChildrenVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/response/children/ChildrenVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/response/volunteer/UserMinVO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/config/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/controller/VolunteerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/controller/VolunteerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/volunteer/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/volunteer/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/VolunteerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/controller/VolunteerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/volunteer/src/main/resources/application.yml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +67,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "1.8.0_362",
-    "last_opened_file_path": "D:/Code/java/snqg-dev/volunteer/src/main/java/com/snqg",
+    "last_opened_file_path": "D:/Code/java/snqg-dev/children/src/main/java/com/snqg",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -74,17 +76,22 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "b6862c1a468df586f63d0246da001c35",
+    "spring.configuration.checksum": "65404fe99293d98619bbc2b93fe636e7",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Code\java\snqg-dev\volunteer\src\main\java\com\snqg" />
       <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg" />
+      <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg\controller" />
+      <recent name="D:\Code\java\snqg-dev\domain\src\main\java\com\snqg\domain\response" />
+      <recent name="D:\Code\java\snqg-dev\volunteer\src\main\java\com\snqg" />
       <recent name="D:\Code\java\snqg-dev\admin\src\main\resources" />
-      <recent name="D:\Code\java\snqg-dev\admin\src\main\java\com\snqg" />
-      <recent name="D:\Code\java\snqg-dev\common\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.snqg.common.util" />
@@ -140,7 +147,11 @@
       <workItem from="1698721487572" duration="443000" />
       <workItem from="1698722188797" duration="937000" />
       <workItem from="1698727318352" duration="3037000" />
-      <workItem from="1698737311505" duration="1896000" />
+      <workItem from="1698737311505" duration="2016000" />
+      <workItem from="1698836802275" duration="776000" />
+      <workItem from="1698845281443" duration="52000" />
+      <workItem from="1698848962187" duration="2987000" />
+      <workItem from="1698892293445" duration="317000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -150,7 +161,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698721507829</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="init">
+      <option name="closed" value="true" />
+      <created>1698739227660</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698739227660</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
