@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/snqg/AdminApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/main/java/com/snqg/controller/AdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/ChildrenApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/ChildrenApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/children/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/children/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/config/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/controller/ChildrenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/children/controller/ChildrenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/request/children/WxLoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/request/wx/WxLoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/response/children/ChildrenVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/response/children/ChildrenVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/src/main/java/com/snqg/domain/response/volunteer/UserMinVO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/VolunteerApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/config/SwaggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/java/com/snqg/controller/VolunteerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/volunteer/src/main/resources/application.yml" beforeDir="false" />
-    </list>
+    <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="完整代码示例" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,7 +127,7 @@
       <workItem from="1698836802275" duration="776000" />
       <workItem from="1698845281443" duration="52000" />
       <workItem from="1698848962187" duration="2987000" />
-      <workItem from="1698892293445" duration="317000" />
+      <workItem from="1698892293445" duration="603000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -169,7 +145,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698739227660</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="完整代码示例">
+      <option name="closed" value="true" />
+      <created>1698892856013</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698892856014</updated>
+    </task>
+    <task id="LOCAL-00004" summary="完整代码示例">
+      <option name="closed" value="true" />
+      <created>1698892882538</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698892882538</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +180,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="完整代码示例" />
+    <option name="LAST_COMMIT_MESSAGE" value="完整代码示例" />
   </component>
 </project>
