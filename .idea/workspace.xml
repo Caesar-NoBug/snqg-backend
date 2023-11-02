@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="完整代码示例" />
+    <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="完整代码示例">
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/chat/controller/ChatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/desire/controller/DesireController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/task/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" show_ignored="true" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -31,43 +38,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8.0_362&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Code/java/snqg-dev/children/src/main/java/com/snqg&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;65404fe99293d98619bbc2b93fe636e7&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "1.8.0_362",
+    "last_opened_file_path": "D:/Code/java/snqg-dev/children/src/main/java/com/snqg/task",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "65404fe99293d98619bbc2b93fe636e7",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg\task" />
+      <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg\point" />
+      <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg\desire" />
       <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg" />
       <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg\controller" />
-      <recent name="D:\Code\java\snqg-dev\domain\src\main\java\com\snqg\domain\response" />
-      <recent name="D:\Code\java\snqg-dev\volunteer\src\main\java\com\snqg" />
-      <recent name="D:\Code\java\snqg-dev\admin\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.snqg.common.util" />
@@ -128,7 +135,8 @@
       <workItem from="1698845281443" duration="52000" />
       <workItem from="1698848962187" duration="2987000" />
       <workItem from="1698892293445" duration="603000" />
-      <workItem from="1698902331775" duration="122000" />
+      <workItem from="1698902331775" duration="636000" />
+      <workItem from="1698918924796" duration="1109000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -170,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698902451226</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="完整代码示例">
+      <option name="closed" value="true" />
+      <created>1698902495479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1698902495479</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
