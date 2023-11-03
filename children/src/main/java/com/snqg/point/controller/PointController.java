@@ -1,5 +1,6 @@
 package com.snqg.point.controller;
 
+import com.snqg.domain.response.Response;
 import com.snqg.point.domain.dto.TaskStatusResponse;
 import com.snqg.point.domain.vo.PointVO;
 import com.snqg.point.service.PointService;
@@ -27,7 +28,7 @@ public class PointController {
 
     @ApiOperation("获取积分总额(累计值或剩余值)")
     @GetMapping("/getTotalPoints")
-    public int getTotalPoints(@RequestParam(value = "calculationType") String calculationType) {
+    public Response<Integer> getTotalPoints(@RequestParam(value = "calculationType") String calculationType) {
 //        String userId = UserHolder.getUserId();
 //        // 在这里根据calculationType参数的值获取不同类型的积分总额
 //        int totalPoints = 0;
@@ -41,12 +42,12 @@ public class PointController {
 //        }
 //        return totalPoints;
 
-        return 0;
+        return null;
     }
 
     @ApiOperation("获取积分获取记录")
     @GetMapping("/getPointHistory")
-    public List<PointVO> getPointHistory(@RequestParam(value = "type") String type) {
+    public Response<List<PointVO>> getPointHistory(@RequestParam(value = "type") String type) {
 //        String userId = UserHolder.getUserId();
 //        // 在这里根据type参数的值获取不同类型的积分记录
 //        List<PointRecord> pointRecords = new ArrayList<>();
@@ -67,7 +68,7 @@ public class PointController {
 
     @ApiOperation("获取积分排名")
     @GetMapping("/getPointRank")
-    public int getPointRank(
+    public Response<Integer> getPointRank(
             @RequestParam(value = "timeRange") String timeRange,
             @RequestParam(value = "rankingRange") String rankingRange
     ) {
@@ -86,18 +87,18 @@ public class PointController {
 //        pointsRanking = rankingService.getWeeklyGroupPointsRanking(userId, timeRange, rankingRange);
 //        return pointsRanking;
 
-        return 0;
+        return null;
     }
 
     @ApiOperation("获取完成任务个数(绘图)")
     @GetMapping("/getTaskCount")
-    public ResponseEntity<List<TaskStatusResponse>> getTaskCount(@RequestParam(value = "timeRange") String timeRange) {
+    public Response<List<TaskStatusResponse>> getTaskCount(@RequestParam(value = "timeRange") String timeRange) {
         return null;
     }
 
     @ApiOperation("获取积分个数(绘图)")
     @GetMapping("getPointCount")
-    public ResponseEntity<List<TaskStatusResponse>> getPointCount(@RequestParam(value = "timeRange") String timeRange) {
+    public Response<List<TaskStatusResponse>> getPointCount(@RequestParam(value = "timeRange") String timeRange) {
         return null;
     }
 

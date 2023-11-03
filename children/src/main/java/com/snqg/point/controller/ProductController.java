@@ -1,5 +1,6 @@
 package com.snqg.point.controller;
 
+import com.snqg.domain.response.Response;
 import com.snqg.point.domain.vo.ProductVO;
 import com.snqg.point.service.ProductService;
 import io.swagger.annotations.Api;
@@ -19,7 +20,7 @@ public class ProductController {
     private ProductService productService; // 服务层的引用
     @ApiOperation("搜索商品")
     @GetMapping("/search")
-    public ResponseEntity<List<ProductVO>> searchProducts(
+    public Response<List<ProductVO>> searchProducts(
             @RequestParam(value = "discounted", required = false) int isDiscounted,
             @RequestParam(value = "productName", required = false) String productName,
             @RequestParam(value = "category", required = false) int category
@@ -41,7 +42,7 @@ public class ProductController {
 
     @ApiOperation("购买商品")
     @PostMapping("/purchase")
-    public ResponseEntity<String> purchaseProduct(@RequestParam(value = "productId", required = true) String productId) {
+    public Response<String> purchaseProduct(@RequestParam(value = "productId", required = true) String productId) {
 //        String userId = UserHolder.getUserId();
         // 在这里执行积分购买商品的逻辑
 //        PurchaseResponse response = purchaseService.processPurchase(request);
