@@ -5,28 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="完整代码示例">
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/request/CalculationTypeRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/request/PointHistoryRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/request/RankRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointHistoryResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointRankResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointStatusResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/TaskStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/TaskStatusResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/TotalPointsResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/requst/PurchaseRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/requst/SearchRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/response/PurchaseResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/response/SearchResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/PointStatusResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/ProductSearchCriteria.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/TaskStatusResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/PointService.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/PointService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/impl/PointServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/impl/PointServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/impl/ProductServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +86,7 @@
     &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;65404fe99293d98619bbc2b93fe636e7&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -191,7 +176,8 @@
       <workItem from="1698927821493" duration="1625000" />
       <workItem from="1698929529806" duration="3084000" />
       <workItem from="1698976257984" duration="7073000" />
-      <workItem from="1698988892842" duration="7644000" />
+      <workItem from="1698988892842" duration="8277000" />
+      <workItem from="1698998701649" duration="2104000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -273,7 +259,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698992919521</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="完整代码示例">
+      <option name="closed" value="true" />
+      <created>1698998079601</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698998079601</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

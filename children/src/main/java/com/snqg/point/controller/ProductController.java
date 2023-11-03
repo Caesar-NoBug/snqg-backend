@@ -37,6 +37,7 @@ public class ProductController {
 //
 //        return products;
         SearchResponse searchResponse = new SearchResponse();
+
         return Response.ok(searchResponse);
     }
 

@@ -1,4 +1,4 @@
-package com.snqg.point.domain.dto.point.response;
+package com.snqg.point.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

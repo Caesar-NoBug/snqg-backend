@@ -1,6 +1,6 @@
 package com.snqg.point.domain.dto.point.response;
 
-import com.snqg.point.domain.dto.point.response.PointStatus;
+import com.snqg.point.domain.dto.PointStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
