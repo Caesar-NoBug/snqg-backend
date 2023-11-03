@@ -5,9 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="完整代码示例">
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/request/CalculationTypeRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/request/PointHistoryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/request/RankRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointHistoryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointRankResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/PointStatusResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/TaskStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/TaskStatusResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/point/response/TotalPointsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/requst/PurchaseRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/requst/SearchRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/response/PurchaseResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/product/response/SearchResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/PointStatusResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/ProductSearchCriteria.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/TaskStatusResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +38,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="JavaFXApplication" />
         <option value="Class" />
       </list>
     </option>
@@ -101,7 +121,11 @@
       <recent name="D:\Code\java\snqg-dev\children\src\main\java\com\snqg\controller" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="com.snqg.point.domain" />
+      <recent name="com.snqg.point.domain.dto.product.requst" />
+      <recent name="com.snqg.point.domain.dto.point.response" />
+      <recent name="com.snqg.point.domain.dto.point.request" />
+      <recent name="com.snqg.point.domain.dto.point" />
+      <recent name="com.snqg.point.domain.dto.product" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.snqg.common.util" />
@@ -167,7 +191,7 @@
       <workItem from="1698927821493" duration="1625000" />
       <workItem from="1698929529806" duration="3084000" />
       <workItem from="1698976257984" duration="7073000" />
-      <workItem from="1698988892842" duration="2630000" />
+      <workItem from="1698988892842" duration="7644000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -241,7 +265,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698992744091</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="完整代码示例">
+      <option name="closed" value="true" />
+      <created>1698992919521</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698992919521</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

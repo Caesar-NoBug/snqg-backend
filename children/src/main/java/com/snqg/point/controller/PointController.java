@@ -1,18 +1,17 @@
 package com.snqg.point.controller;
 
 import com.snqg.domain.response.Response;
-import com.snqg.point.domain.dto.TaskStatusResponse;
-import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.dto.point.request.CalculationTypeRequest;
+import com.snqg.point.domain.dto.point.request.PointHistoryRequest;
+import com.snqg.point.domain.dto.point.request.RankRequest;
+import com.snqg.point.domain.dto.point.response.*;
 import com.snqg.point.service.PointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //积分模块
@@ -28,7 +27,9 @@ public class PointController {
 
     @ApiOperation("获取积分总额(累计值或剩余值)")
     @GetMapping("/getTotalPoints")
-    public Response<Integer> getTotalPoints(@RequestParam(value = "calculationType") String calculationType) {
+    public Response<TotalPointsResponse> getTotalPoints(
+            @RequestBody CalculationTypeRequest calculationTypeRequest
+    ) {
 //        String userId = UserHolder.getUserId();
 //        // 在这里根据calculationType参数的值获取不同类型的积分总额
 //        int totalPoints = 0;
@@ -41,13 +42,15 @@ public class PointController {
 //            // 可以处理未知类型的情况，如抛出异常或返回默认值
 //        }
 //        return totalPoints;
-
-        return null;
+        TotalPointsResponse totalPointsResponse = new TotalPointsResponse();
+        return Response.ok(totalPointsResponse);
     }
 
     @ApiOperation("获取积分获取记录")
     @GetMapping("/getPointHistory")
-    public Response<List<PointVO>> getPointHistory(@RequestParam(value = "type") String type) {
+    public Response<PointHistoryResponse> getPointHistory(
+            @RequestBody PointHistoryRequest historyRequest
+    ) {
 //        String userId = UserHolder.getUserId();
 //        // 在这里根据type参数的值获取不同类型的积分记录
 //        List<PointRecord> pointRecords = new ArrayList<>();
@@ -62,15 +65,14 @@ public class PointController {
 //            // 可以处理未知类型的情况，如抛出异常或返回默认值
 //        }
 //        return pointHistory;
-
-        return null;
+        PointHistoryResponse pointHistoryResponse = new PointHistoryResponse();
+        return Response.ok(pointHistoryResponse);
     }
 
     @ApiOperation("获取积分排名")
     @GetMapping("/getPointRank")
-    public Response<Integer> getPointRank(
-            @RequestParam(value = "timeRange") String timeRange,
-            @RequestParam(value = "rankingRange") String rankingRange
+    public Response<PointRankResponse> getPointRank(
+            @RequestBody RankRequest pointRankRequest
     ) {
         /*
         timeRange:
@@ -87,19 +89,21 @@ public class PointController {
 //        pointsRanking = rankingService.getWeeklyGroupPointsRanking(userId, timeRange, rankingRange);
 //        return pointsRanking;
 
-        return null;
+        return Response.ok(new PointRankResponse());
     }
 
     @ApiOperation("获取完成任务个数(绘图)")
     @GetMapping("/getTaskCount")
-    public Response<List<TaskStatusResponse>> getTaskCount(@RequestParam(value = "timeRange") String timeRange) {
-        return null;
+    public Response<TaskStatusResponse> getTaskCount(@RequestBody RankRequest rankRequest) {
+        TaskStatusResponse taskStatusResponse = new TaskStatusResponse();
+        return Response.ok(taskStatusResponse);
     }
 
     @ApiOperation("获取积分个数(绘图)")
     @GetMapping("getPointCount")
-    public Response<List<TaskStatusResponse>> getPointCount(@RequestParam(value = "timeRange") String timeRange) {
-        return null;
+    public Response<PointStatusResponse> getPointCount(@RequestBody RankRequest rankRequest) {
+        PointStatusResponse pointStatusResponse = new PointStatusResponse();
+        return Response.ok(pointStatusResponse);
     }
 
 }
