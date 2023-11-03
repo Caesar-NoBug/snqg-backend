@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://8.130.19.151:13306/snqg</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="snqg remote-0" uuid="d36419c0-25d2-48c7-b294-c07a203bf624">
+      <driver-ref>redis</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
+      <jdbc-url>jdbc:redis://8.130.19.151:16379/0</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
