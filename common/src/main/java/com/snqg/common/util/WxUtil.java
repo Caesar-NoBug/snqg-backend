@@ -27,7 +27,7 @@ public class WxUtil {
 
         WxLoginResponse response = new WxLoginResponse();
 
-        ThrowUtil.throwIf(!Objects.isNull(jsonObject.getString("errorcode")),
+        ThrowUtil.throwIf(!Objects.isNull(jsonObject.getString("errcode")),
                 ErrorCode.ILLEGAL_PARAM_ERROR, jsonObject.getString("errmsg"));
 
         response.setOpenid(jsonObject.getString("openid"));

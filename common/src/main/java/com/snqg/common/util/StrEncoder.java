@@ -3,7 +3,7 @@ package com.snqg.common.util;
 import cn.hutool.crypto.digest.DigestUtil;
 
 //加密原始密码
-public class PasswordEncoder {
+public class StrEncoder {
 
     /**
      * @param rawString 原始字符串

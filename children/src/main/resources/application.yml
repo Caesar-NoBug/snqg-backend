@@ -7,10 +7,11 @@ spring:
     username: root
     password: 5eqPGg62I4
 
-  data:
-    redis:
-      host: 8.130.19.151
-      port: 16379
-      database: 0
+  redis:
+    host: 8.130.19.151
+    port: 16379
+    database: 0
+    password: rIj12YF23S
+
 server:
   port: 23456

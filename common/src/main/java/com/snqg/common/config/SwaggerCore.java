@@ -56,7 +56,7 @@ public class SwaggerCore {
      */
     private static List<SecurityScheme> securitySchemes() {
         return Collections.singletonList(
-                new ApiKey("Authorization", "Authorization", "header"));
+                new ApiKey("Authorization", "token", "header"));
     }
 
     /**
