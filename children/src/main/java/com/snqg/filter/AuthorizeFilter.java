@@ -24,7 +24,7 @@ public class AuthorizeFilter extends OncePerRequestFilter {
     private RedisCache redisCache;
 
     public static final PrefixMatcher matcher = new PrefixMatcher("/children/login",
-            "/doc.html", "/img/*", "/favicon.ico", "/swagger-resources", "/v2*");
+            "/doc.html", "/img/*", "/favicon.ico", "/swagger-resources", "/v2*", "/webjars*", "/swagger-ui*");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

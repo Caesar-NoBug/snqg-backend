@@ -40,7 +40,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.snqg.AdminApplication</mainClass>
+                            <mainClass>com.snqg.ChildrenApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

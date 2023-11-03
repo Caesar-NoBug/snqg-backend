@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -26,9 +28,19 @@ public class Message implements Serializable {
     private String senderId;
 
     /**
+     * 发送者用户名
+     */
+    private String sender;
+
+    /**
      * 接受者id
      */
     private String receiverId;
+
+    /**
+     * 接受者用户名
+     */
+    private String receiver;
 
     /**
      * 消息内容

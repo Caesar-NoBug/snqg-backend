@@ -16,4 +16,37 @@
         id,sender_id,receiver_id,
         content,send_time
     </sql>
+
+    <insert id="sendMessage">
+        INSERT INTO message (sender_id, receiver_id, content, send_time)
+        VALUES (#{senderId}, #{receiverId}, #{content}, #{sendTime})
+    </insert>
+
+    <select id="pullMessage" resultType="com.snqg.chat.entity.Message">
+        CREATE VIEW temp_message AS (SELECT sender_id,  receiver_id, content, send_time
+                                    FROM message
+                                    WHERE send_time > #{startTime}
+                                      AND (
+                                                sender_id = #{userId}
+                                            OR
+                                                receiver_id = #{userId}
+                                        ));
+
+        SELECT user_a.username AS sender, sender_id, user_b.username AS receiver, receiver_id, content, send_time
+        FROM temp_message
+                 JOIN `user` as user_a ON sender_id = user_a.id
+                 JOIN `user` as user_b ON receiver_id = user_b.id
+    </select>
+
+    <select id="isFriend" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM friend
+        WHERE (
+            user1_id = #{userAId} AND user2_id = #{userBId}
+        )
+            OR (
+                user1_id = #{userBId} AND user2_id = #{userAId}
+            )
+    </select>
+
 </mapper>

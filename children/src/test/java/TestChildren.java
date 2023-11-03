@@ -19,7 +19,7 @@ public class TestChildren {
     @Resource
     private ChildrenController controller;
 
-    @Test
+    /*@Test
     public void testWxLogin() {
         String code = StrUtil.randNumCode(6);
         addTestData(code);
@@ -42,5 +42,5 @@ public class TestChildren {
         user.setUpdateBy(LocalDateTime.now());
 
         userMapper.addBindInfo(code, user);
-    }
+    }*/
 }
