@@ -1,6 +1,6 @@
 package com.snqg.point.controller;
 
-import com.snqg.point.entity.Product;
+import com.snqg.point.domain.vo.ProductVO;
 import com.snqg.point.service.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,7 +19,7 @@ public class ProductController {
     private ProductService productService; // 服务层的引用
     @ApiOperation("搜索商品")
     @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProducts(
+    public ResponseEntity<List<ProductVO>> searchProducts(
             @RequestParam(value = "discounted", required = false) int isDiscounted,
             @RequestParam(value = "productName", required = false) String productName,
             @RequestParam(value = "category", required = false) int category

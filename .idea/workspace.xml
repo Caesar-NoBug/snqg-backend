@@ -5,33 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="612f7071-63e9-4701-990f-ba55ebe01852" name="Changes" comment="完整代码示例">
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/MsPointStruct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/MsProductStruct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/PointStatusResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/ProductSearchCriteria.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/dto/TaskStatusResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/entity/Point.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/entity/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/mapper/PointMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/mapper/ProductMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/PointService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/impl/PointServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/resources/mapper/PointMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/children/src/main/resources/mapper/ProductMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9cddb2bc-df52-4440-beb7-fce04ac0cae7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9cddb2bc-df52-4440-beb7-fce04ac0cae7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9cddb2bc-df52-4440-beb7-fce04ac0cae7/storage_v2/_src_/schema/snqg.sfE1AA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9cddb2bc-df52-4440-beb7-fce04ac0cae7/storage_v2/_src_/schema/snqg.sfE1AA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/PointController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/PointVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/children/src/main/java/com/snqg/point/domain/vo/ProductVO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +168,7 @@
       <workItem from="1698927821493" duration="1625000" />
       <workItem from="1698929529806" duration="3084000" />
       <workItem from="1698976257984" duration="7073000" />
-      <workItem from="1698988892842" duration="1497000" />
+      <workItem from="1698988892842" duration="2232000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -241,7 +218,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698902495479</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="完整代码示例">
+      <option name="closed" value="true" />
+      <created>1698991959924</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1698991959924</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

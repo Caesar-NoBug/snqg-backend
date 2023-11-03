@@ -17,4 +17,6 @@ public class PointVO {
     private Integer changedPoint;
     @ApiModelProperty(value = "积分改变时间", example = "2023-11-02")
     private LocalDateTime changeTime;
+    @ApiModelProperty(value = "任务描述", example = "记忆60个单词")
+    private String taskDesc;
 }

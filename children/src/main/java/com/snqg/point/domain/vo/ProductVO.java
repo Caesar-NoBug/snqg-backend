@@ -1,6 +1,7 @@
 package com.snqg.point.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,8 @@ public class ProductVO {
     private Integer price;
     @ApiModelProperty(value = "商品剩余个数", example = "3")
     private Integer count;
+    @ApiModelProperty(value = "商品类型", example = "1")
+    private Integer type;
+    @ApiModelProperty(value = "商品图片", example = "book.png")
+    private String picture;
 }
