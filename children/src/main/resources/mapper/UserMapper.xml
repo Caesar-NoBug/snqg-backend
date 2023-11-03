@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snqg.children.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.snqg.children.entity.User">
+            <id property="id" column="id" jdbcType="VARCHAR"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="role" column="role" jdbcType="TINYINT"/>
+            <result property="gender" column="gender" jdbcType="TINYINT"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="birth" column="birth" jdbcType="TIMESTAMP"/>
+            <result property="point" column="point" jdbcType="INTEGER"/>
+            <result property="updateBy" column="update_by" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,username,role,
+        gender,avatar,address,
+        birth,point,update_by,
+        is_delete
+    </sql>
+
+    <insert id="addBindInfo">
+        INSERT INTO bind_info (code, username, gender, address, birth, avatar, role)
+        VALUES (#{inviteCode}, #{user.username}, #{user.gender}, #{user.address}, #{user.birth}, #{user.avatar}, #{user.role})
+    </insert>
+
+    <delete id="removeBindInfo">
+        DELETE FROM bind_info
+        WHERE code = #{inviteCode}
+    </delete>
+
+    <select id="selectUserById" resultType="com.snqg.children.entity.User">
+        SELECT id, username, role, gender, avatar, address, birth, point, update_by, is_delete
+        FROM user
+        WHERE is_delete = 0
+        AND id = #{id}
+    </select>
+
+    <select id="selectBindInfo" resultType="com.snqg.children.entity.User">
+        SELECT username, gender, address, address, birth, avatar, role
+        FROM bind_info
+        WHERE code = #{inviteCode}
+    </select>
+
+</mapper>
