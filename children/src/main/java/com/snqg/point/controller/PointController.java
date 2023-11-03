@@ -2,7 +2,6 @@ package com.snqg.point.controller;
 
 import com.snqg.point.domain.dto.TaskStatusResponse;
 import com.snqg.point.domain.vo.PointVO;
-import com.snqg.point.entity.Product;
 import com.snqg.point.service.PointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -101,24 +100,5 @@ public class PointController {
     public ResponseEntity<List<TaskStatusResponse>> getPointCount(@RequestParam(value = "timeRange") String timeRange) {
         return null;
     }
-
-    @ApiOperation("获取星星数量")
-    @GetMapping("/getStarCount")
-    public int getStarCount() {
-
-//        String userId = UserHolder.getUserId();
-//
-//        // 在这里根据用户的总积分数量计算星星数量
-//        int totalPoints = userService.getTotalPointsForUser(userId);
-//
-//        // 根据积分数量计算星星数量的逻辑
-//        // 例如，假设每100积分增加1颗星星
-//        int starCount = totalPoints / 100;
-//        int starCount = Math.min(starCount, 7); // 最多显示7颗星星
-//
-//        return starCount;
-        return 0;
-    }
-
 
 }
