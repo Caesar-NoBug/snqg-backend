@@ -8,6 +8,8 @@ import java.util.List;
 
 @Data
 public class PointStatusResponse {
+
     @ApiModelProperty(value = "返回积分绘图数据列表")
     private List<PointStatus> pointStatusList;
+
 }

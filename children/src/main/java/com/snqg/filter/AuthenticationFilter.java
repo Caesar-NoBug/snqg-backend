@@ -54,7 +54,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             throw new BusinessException(ErrorCode.ILLEGAL_PARAM_ERROR, "认证失败：非法token");
         }
 
-        System.out.println(RedisPrefix.USER_SESSION_TOKEN + userId);
         String encodedToken = redisCache.getCacheObject(RedisPrefix.USER_SESSION_TOKEN + userId);
 
         //jwt已失效

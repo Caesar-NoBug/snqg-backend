@@ -1,19 +1,13 @@
 import com.snqg.ChildrenApplication;
-import com.snqg.children.constant.RedisPrefix;
+import com.snqg.chat.mapper.MessageMapper;
 import com.snqg.children.controller.ChildrenController;
-import com.snqg.children.entity.User;
 import com.snqg.children.mapper.UserMapper;
 import com.snqg.common.util.JwtUtil;
 import com.snqg.common.util.RedisCache;
-import com.snqg.common.util.StrEncoder;
-import com.snqg.common.util.StrUtil;
-import com.snqg.domain.constant.StrConstant;
-import com.snqg.domain.request.children.LoginRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
 
 @SpringBootTest(classes = ChildrenApplication.class)
 public class TestChildren {
@@ -23,6 +17,9 @@ public class TestChildren {
 
     @Resource
     private ChildrenController controller;
+
+    @Resource
+    private MessageMapper messageMapper;
 
     /*@Test
     public void testWxLogin() {
@@ -59,6 +56,30 @@ public class TestChildren {
         String token = JwtUtil.createJWT("o2HEN5a1-62AL1SDc18g4lW7PQUg");
         System.out.println(JwtUtil.parseJWT(token).getSubject());
 
+    }
+
+    @Test
+    public void testDB() {
+        System.out.println(userMapper.selectUserById("o2HEN5a1-62AL1SDc18g4lW7PQUg"));
+    }
+    /*@Test
+    public void insertTestData() {
+        String token = JwtUtil.createJWT("666");
+
+        redisCache.setCacheObject(RedisPrefix.USER_SESSION_TOKEN + "666", StrEncoder.encode(token));
+
+        System.out.println(token);
+
+        token = JwtUtil.createJWT("777");
+
+        redisCache.setCacheObject(RedisPrefix.USER_SESSION_TOKEN + "777", StrEncoder.encode(token));
+
+        System.out.println(token);
+    }*/
+
+    @Test
+    public void testDB2() {
+        System.out.println(messageMapper.selectFriendList("666"));
     }
 
 }

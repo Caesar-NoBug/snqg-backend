@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @EqualsAndHashCode
@@ -25,7 +26,8 @@ public class MessageVO {
     @ApiModelProperty(value = "消息内容", example = "你好，我是志愿者007")
     private String content;
 
-    @ApiModelProperty(value = "发送时间", example = "1970-01-01T19:26:02.928")
-    private LocalDateTime sendTime;
+    @ApiModelProperty(value = "发送时间", example = "1699096038369")
+    private Date sendTime;
+
 
 }

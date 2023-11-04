@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -84,7 +85,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         ThrowUtil.throwIfNull(newUser, "注册失败：邀请码错误");
 
         newUser.setId(wxId);
-        newUser.setUpdateBy(LocalDateTime.now());
+        newUser.setUpdateBy(new Date());
         newUser.setPoint(0);
         newUser.setIsDelete(0);
 

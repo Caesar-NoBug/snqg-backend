@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -49,7 +51,7 @@ public class User implements Serializable {
     /**
      * 生日
      */
-    private LocalDateTime birth;
+    private Date birth;
 
     /**
      * 积分
@@ -59,7 +61,7 @@ public class User implements Serializable {
     /**
      * 上一次信息更改时间
      */
-    private LocalDateTime updateBy;
+    private Date updateBy;
 
     /**
      * 逻辑删除字段

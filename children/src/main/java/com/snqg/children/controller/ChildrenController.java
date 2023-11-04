@@ -1,6 +1,7 @@
 package com.snqg.children.controller;
 
 import com.snqg.children.service.UserService;
+import com.snqg.context.UserHolder;
 import com.snqg.domain.request.children.LoginRequest;
 import com.snqg.domain.response.Response;
 import com.snqg.domain.response.children.LoginResponse;
@@ -28,7 +29,7 @@ public class ChildrenController {
     @ApiOperation("测试接口：测试token是否可用")
     @GetMapping("/test-token")
     public Response<String> testToken() {
-        return Response.ok("token可用");
+        return Response.ok("token可用,当前用户id为：" + UserHolder.getUserId());
     }
 
 }
