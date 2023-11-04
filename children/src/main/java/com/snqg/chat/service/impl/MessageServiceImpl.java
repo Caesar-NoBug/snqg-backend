@@ -5,6 +5,7 @@ import com.snqg.chat.domain.MsMessageStruct;
 import com.snqg.chat.entity.Message;
 import com.snqg.chat.service.MessageService;
 import com.snqg.chat.mapper.MessageMapper;
+import com.snqg.common.exception.ThrowUtil;
 import com.snqg.domain.request.chat.SendMessageRequest;
 import com.snqg.domain.response.chat.MessageVO;
 import com.snqg.domain.response.chat.SendMessageResponse;
@@ -40,6 +41,9 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
 
     @Override
     public SendMessageResponse sendMessage(String userId, SendMessageRequest request) {
+
+        ThrowUtil.throwIf(messageMapper.isFriend(userId, request.getReceiverId()) <= 0,
+            "发送失败，该用户不是您的好友");
 
         Message message = new Message();
         message.setSenderId(userId);

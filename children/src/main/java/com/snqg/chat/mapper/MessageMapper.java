@@ -20,6 +20,7 @@ public interface MessageMapper extends BaseMapper<Message> {
     int sendMessage(Message message);
 
     int isFriend(String userAId, String userBId);
+
 }
 
 

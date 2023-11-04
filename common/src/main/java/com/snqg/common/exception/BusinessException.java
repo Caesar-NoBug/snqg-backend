@@ -2,7 +2,9 @@ package com.snqg.common.exception;
 
 import com.snqg.domain.enums.ErrorCode;
 import lombok.Getter;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+@ResponseStatus
 @Getter
 // 业务异常
 public class BusinessException extends RuntimeException{

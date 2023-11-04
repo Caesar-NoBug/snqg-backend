@@ -8,6 +8,7 @@ import com.snqg.context.UserHolder;
 import com.snqg.domain.enums.ErrorCode;
 import io.jsonwebtoken.Claims;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class AuthorizeFilter extends OncePerRequestFilter {
+@Order(-1)
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Resource
     private RedisCache redisCache;
