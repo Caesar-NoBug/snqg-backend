@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 public class FindHelpRequest {
-    @ApiModelProperty(value = "childId", example = "1234")
-    private int childId;
+
+    //@ApiModelProperty(value = "childId", example = "1234")
+   // private int childId;
     @ApiModelProperty(value = "taskId", example = "123")
     private int id;
     @ApiModelProperty(value = "taskContent", example = "任务完成了!")
