@@ -1,7 +1,12 @@
 package com.snqg.point.mapper;
 
+import com.snqg.point.domain.dto.point.PointUserDTO;
 import com.snqg.point.entity.Point;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.lettuce.core.dynamic.annotation.Param;
+
+import java.util.List;
+
 
 /**
 * @author zilu
@@ -10,7 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.snqg.point.entity.Point
 */
 public interface PointMapper extends BaseMapper<Point> {
-
+    List<PointUserDTO> selectPointUserRecords(@Param("timeRangeSQL") String timeRangeSQL,
+                                              @Param("rankingRangeSQL") String rankingRangeSQL);
 }
 
 

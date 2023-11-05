@@ -17,6 +17,21 @@ import java.util.List;
 */
 
 public interface ProductService extends IService<Product> {
+
+    /**
+     * 查询商品列表
+     * @param isDiscount
+     * @param productName
+     * @param category
+     * @return
+     */
     List<ProductVO> searchProduct(int isDiscount, String productName, int category);
+
+    /**
+     * 购买商品
+     * @param userId
+     * @param productId
+     * @return
+     */
     String purchaseProduct(String userId, String productId);
 }

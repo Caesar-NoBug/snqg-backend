@@ -3,7 +3,7 @@ package com.snqg.point.controller;
 import com.snqg.domain.response.Response;
 import com.snqg.point.domain.dto.point.request.CalculationTypeRequest;
 import com.snqg.point.domain.dto.point.request.PointHistoryRequest;
-import com.snqg.point.domain.dto.point.request.RankRequest;
+import com.snqg.point.domain.dto.point.request.RankingRequest;
 import com.snqg.point.domain.dto.point.response.*;
 import com.snqg.point.service.PointService;
 import io.swagger.annotations.Api;
@@ -69,7 +69,7 @@ public class PointController {
     @ApiOperation("获取积分排名")
     @GetMapping("/getPointRank")
     public Response<PointRankResponse> getPointRank(
-            @RequestBody RankRequest pointRankRequest
+            @RequestBody RankingRequest pointRankingRequest
     ) {
         /*
         timeRange:
@@ -90,15 +90,15 @@ public class PointController {
     }
 
     @ApiOperation("获取完成任务个数(绘图)")
-    @GetMapping("/getTaskCount")
-    public Response<TaskStatusResponse> getTaskCount(@RequestBody RankRequest rankRequest) {
+    @GetMapping("/drawTaskCount")
+    public Response<TaskStatusResponse> getTaskCount(@RequestBody RankingRequest rankingRequest) {
         TaskStatusResponse taskStatusResponse = new TaskStatusResponse();
         return Response.ok(taskStatusResponse);
     }
 
     @ApiOperation("获取积分个数(绘图)")
-    @GetMapping("getPointCount")
-    public Response<PointStatusResponse> getPointCount(@RequestBody RankRequest rankRequest) {
+    @GetMapping("/drawPointCount")
+    public Response<PointStatusResponse> getPointCount(@RequestBody RankingRequest rankingRequest) {
         PointStatusResponse pointStatusResponse = new PointStatusResponse();
         return Response.ok(pointStatusResponse);
     }
