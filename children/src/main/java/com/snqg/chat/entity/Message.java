@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -26,9 +29,19 @@ public class Message implements Serializable {
     private String senderId;
 
     /**
+     * 发送者用户名
+     */
+    private String sender;
+
+    /**
      * 接受者id
      */
     private String receiverId;
+
+    /**
+     * 接受者用户名
+     */
+    private String receiver;
 
     /**
      * 消息内容
@@ -38,7 +51,7 @@ public class Message implements Serializable {
     /**
      * 发送时间
      */
-    private LocalDateTime sendTime;
+    private Date sendTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

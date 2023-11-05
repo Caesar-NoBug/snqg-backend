@@ -2,6 +2,10 @@ package com.snqg.chat.mapper;
 
 import com.snqg.chat.entity.Message;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.snqg.domain.response.chat.FriendVO;
+
+import java.util.Date;
+import java.util.List;
 
 /**
 * @author caesar
@@ -11,6 +15,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface MessageMapper extends BaseMapper<Message> {
 
+    List<Message> pullMessage(String userId, Date startTime);
+
+    int sendMessage(Message message);
+
+    int isFriend(String userAId, String userBId);
+
+    List<FriendVO> selectFriendList(String userId);
 }
 
 

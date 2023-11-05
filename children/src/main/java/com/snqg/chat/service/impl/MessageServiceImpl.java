@@ -1,10 +1,22 @@
 package com.snqg.chat.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.snqg.chat.domain.MsMessageStruct;
 import com.snqg.chat.entity.Message;
 import com.snqg.chat.service.MessageService;
 import com.snqg.chat.mapper.MessageMapper;
+import com.snqg.common.exception.ThrowUtil;
+import com.snqg.domain.request.chat.SendMessageRequest;
+import com.snqg.domain.response.chat.FriendVO;
+import com.snqg.domain.response.chat.MessageVO;
+import com.snqg.domain.response.chat.SendMessageResponse;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * @author caesar
@@ -14,6 +26,45 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message>
     implements MessageService{
+
+    @Resource
+    private MessageMapper messageMapper;
+
+    @Resource
+    private MsMessageStruct messageStruct;
+
+    @Override
+    public List<MessageVO> pullMessage(String userId, Date startTime) {
+        System.out.println(startTime);
+        return messageMapper.pullMessage(userId, startTime)
+                .stream()
+                .map(messageStruct::msDOToVO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public SendMessageResponse sendMessage(String userId, SendMessageRequest request) {
+
+        ThrowUtil.throwIf(messageMapper.isFriend(userId, request.getReceiverId()) <= 0,
+            "发送失败，该用户不是您的好友");
+
+        Message message = new Message();
+        message.setSenderId(userId);
+        message.setReceiverId(request.getReceiverId());
+        message.setContent(request.getContent());
+        message.setSendTime(new Date());
+
+        SendMessageResponse response = new SendMessageResponse();
+
+        response.setIsSuccess(messageMapper.sendMessage(message) > 0);
+
+        return response;
+    }
+
+    @Override
+    public List<FriendVO> getFriendList(String userId) {
+        return messageMapper.selectFriendList(userId);
+    }
 
 }
 

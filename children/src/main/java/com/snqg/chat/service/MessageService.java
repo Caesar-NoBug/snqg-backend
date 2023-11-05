@@ -2,6 +2,14 @@ package com.snqg.chat.service;
 
 import com.snqg.chat.entity.Message;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.snqg.domain.request.chat.SendMessageRequest;
+import com.snqg.domain.response.chat.FriendVO;
+import com.snqg.domain.response.chat.MessageVO;
+import com.snqg.domain.response.chat.SendMessageResponse;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
 * @author caesar
@@ -10,4 +18,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface MessageService extends IService<Message> {
 
+    List<MessageVO> pullMessage(String userId, Date startTime);
+
+    SendMessageResponse sendMessage(String userId, SendMessageRequest request);
+
+    List<FriendVO> getFriendList(String userId);
 }

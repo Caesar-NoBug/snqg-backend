@@ -16,7 +16,7 @@ public class Response<T>{
 
     @ApiModelProperty(value = "状态码", example = "200")
     private int code;
-    @ApiModelProperty(value = "数据", example = "{name:'caesar',password:'2334'}")
+    @ApiModelProperty(value = "数据")
     private T data;
     @ApiModelProperty(value = "提示信息", example = "请求成功")
     private String msg;

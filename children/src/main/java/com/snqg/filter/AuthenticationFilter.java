@@ -8,6 +8,7 @@ import com.snqg.context.UserHolder;
 import com.snqg.domain.enums.ErrorCode;
 import io.jsonwebtoken.Claims;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,13 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class AuthorizeFilter extends OncePerRequestFilter {
+@Order(-1)
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Resource
     private RedisCache redisCache;
 
     public static final PrefixMatcher matcher = new PrefixMatcher("/children/login",
-            "/doc.html", "/img/*", "/favicon.ico", "/swagger-resources", "/v2*");
+            "/doc.html", "/img/*", "/favicon.ico", "/swagger-resources", "/v2*", "/webjars*", "/swagger-ui*");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -52,7 +54,6 @@ public class AuthorizeFilter extends OncePerRequestFilter {
             throw new BusinessException(ErrorCode.ILLEGAL_PARAM_ERROR, "认证失败：非法token");
         }
 
-        System.out.println(RedisPrefix.USER_SESSION_TOKEN + userId);
         String encodedToken = redisCache.getCacheObject(RedisPrefix.USER_SESSION_TOKEN + userId);
 
         //jwt已失效

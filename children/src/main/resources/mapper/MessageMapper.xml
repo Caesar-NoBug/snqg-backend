@@ -16,4 +16,41 @@
         id,sender_id,receiver_id,
         content,send_time
     </sql>
+
+    <insert id="sendMessage">
+        INSERT INTO message (sender_id, receiver_id, content, send_time)
+        VALUES (#{senderId}, #{receiverId}, #{content}, #{sendTime})
+    </insert>
+
+    <select id="isFriend" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM friend
+        WHERE (
+            user1_id = #{userAId} AND user2_id = #{userBId}
+        )
+            OR (
+                user1_id = #{userBId} AND user2_id = #{userAId}
+            )
+    </select>
+    <select id="pullMessage" resultType="com.snqg.chat.entity.Message">
+        SELECT user_a.username AS sender, sender_id, user_b.username AS receiver, receiver_id, content, send_time
+        FROM temp_message
+                 JOIN `user` as user_a ON sender_id = user_a.id
+                 JOIN `user` as user_b ON receiver_id = user_b.id
+        WHERE send_time > #{startTime}
+    </select>
+    <select id="selectFriendList" resultType="com.snqg.domain.response.chat.FriendVO">
+        SELECT DISTINCT id, username
+        FROM user
+        WHERE id IN (
+            SELECT user1_id
+            FROM friend
+            WHERE user2_id = #{userId}
+            UNION
+            SELECT user2_id
+            FROM friend
+            WHERE user1_id = #{userId}
+            )
+    </select>
+
 </mapper>
