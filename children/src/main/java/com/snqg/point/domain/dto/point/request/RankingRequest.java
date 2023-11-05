@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class RankRequest {
+public class RankingRequest {
     @ApiModelProperty(value = "timeRange", example = "total")
     private String timeRange;
     @ApiModelProperty(value = "rankingRange", example = "group")

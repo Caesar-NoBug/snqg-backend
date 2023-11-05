@@ -12,7 +12,21 @@ import java.util.List;
 * @createDate 2023-11-03 12:02:40
 */
 public interface PointService extends IService<Point> {
-    int getTotalPoints(String userId, String type);
+
+    /**
+     * 获取积分获取记录
+     * @param userId
+     * @param type
+     * @return
+     */
     List<PointVO> getPointHistory(String userId, String type);
-    int getTotalPoint(String userId, String timeRange, String groupRange);
+
+    /**
+     * 获取积分总额(累计值或剩余值)
+     * @param userId
+     * @param type
+     * @param timeRange
+     * @return
+     */
+    int getTotalPoints(String userId, String type, String timeRange);
 }
