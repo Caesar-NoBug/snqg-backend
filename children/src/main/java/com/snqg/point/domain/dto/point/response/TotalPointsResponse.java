@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class TotalPointsResponse {
     @ApiModelProperty(value = "积分总额", example = "11290")
-    private int totalPoint;
+    private int totalPoints;
 }

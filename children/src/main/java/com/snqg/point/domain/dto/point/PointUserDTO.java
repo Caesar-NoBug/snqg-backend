@@ -2,6 +2,8 @@ package com.snqg.point.domain.dto.point;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class PointUserDTO {
     /**
@@ -11,5 +13,5 @@ public class PointUserDTO {
     private String userId;
     private String address;
     private int changedPoint;
-    private String changeTime;
+    private LocalDateTime changeTime;
 }

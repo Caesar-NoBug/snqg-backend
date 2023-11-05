@@ -1,5 +1,6 @@
 package com.snqg.point.service.impl;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.snqg.children.mapper.UserMapper;
@@ -7,6 +8,7 @@ import com.snqg.point.domain.MsPointStruct;
 import com.snqg.point.domain.vo.PointStatusVO;
 import com.snqg.point.domain.dto.point.PointUserDTO;
 import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.snqg.point.service.PointService;
 import com.snqg.point.mapper.PointMapper;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,9 +38,6 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 
     @Autowired
     private PointMapper pointMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
     /**
      * 获取积分获取记录
@@ -74,6 +74,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 
         return pointVOList;
     }
+    // ------------------------------------------------------------
 
     /**
      * 获取积分总额(累计值或剩余值)
@@ -128,6 +129,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         return totalPoints;
     }
 
+    // ------------------------------------------------------------
     /**
      * 获取积分列表（包含所有儿童）
      * @param timeRange
@@ -169,6 +171,8 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
                 params.get("rankingRangeSQL"));
     }
 
+    // ------------------------------------------------------------
+
     /**
      * 获取积分排名
      * @param userId
@@ -176,6 +180,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
      * @param rankingRange
      * @return
      */
+    @Override
     public int getPointRank(String userId, String timeRange, String rankingRange) {
 
         List<PointUserDTO> pointUserDTOList = getPointUserDTOList(timeRange, rankingRange);
@@ -196,13 +201,77 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
     }
 
+    // ------------------------------------------------------------
+
     /**
-     * 获取每一天或每一月的积分变化情况
+     * 获取当天任务完成个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getTaskCount(String userId) {
+        // 获取当天的任务完成数量，应该是一个范围查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        LocalDateTime startTime = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0); // 当天的开始时间
+        LocalDateTime endTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59); // 当天的结束时间
+        queryWrapper.eq("user_id", userId).between("change_time", startTime, endTime);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        return pointsList.size();
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取每一天或每一月的任务完成数量统计情况（用于绘图）
+     * @param userId
+     * @param timeRange
+     * @return
+     */
+    @Override
+    public List<TaskStatusVO> getDrawTaskData(String userId, String timeRange) {
+        List<PointUserDTO> pointUserDTOList;
+        if (timeRange.equals("mouth")) {
+            pointUserDTOList = getPointUserDTOList("year", "system");
+        } else if (timeRange.equals("week")) {
+            pointUserDTOList = getPointUserDTOList("week", "system");
+        } else {
+            return null;
+        }
+
+        if (pointUserDTOList != null) {
+            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
+                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+
+            List<TaskStatusVO> taskStatusVOList = new ArrayList<>();
+            for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
+
+                TaskStatusVO taskStatusVO = new TaskStatusVO();
+
+                taskStatusVO.setRecordTime(entry.getKey());
+                taskStatusVO.setUserTaskCount((int) entry.getValue().stream()
+                        .filter(dto -> dto.getUserId().equals(userId))
+                        .count());
+                taskStatusVO.setSystemAverageTaskCount((double) entry.getValue().size() / entry.getValue().size());
+
+                taskStatusVOList.add(taskStatusVO);
+            }
+
+            return taskStatusVOList;
+        } else {
+            return null;
+        }
+    }
+
+    // ------------------------------------------------------------
+    /**
+     * 获取每一天或每一月的积分变化情况（用于绘图）
      * 包含userId对应的儿童的积分以及整个系统积分的平均值
      * @param userId
      * @param timeRange
      * @return
      */
+    @Override
     public List<PointStatusVO> getDrawPointData(String userId, String timeRange) {
 
         List<PointUserDTO> pointUserDTOList;
@@ -215,18 +284,30 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
 
         if (pointUserDTOList != null) {
-//            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
-//                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto)));
-//            Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
-//                    .collect(Collectors.groupingBy(PointUserDTO::getUserId,
-//                            Collectors.summingInt(PointUserDTO::getChangedPoint)));
+            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
+                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
 
+            List<PointStatusVO> pointStatusVOList = new ArrayList<>();
+            for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
 
+                PointStatusVO pointStatusVO = new PointStatusVO();
+
+                pointStatusVO.setRecordTime(entry.getKey());
+                pointStatusVO.setChildPoint(entry.getValue().stream()
+                        .filter(dto -> dto.getUserId().equals(userId))
+                        .mapToInt(PointUserDTO::getChangedPoint)
+                        .sum());
+                pointStatusVO.setSystemAverage((double) entry.getValue().stream()
+                        .mapToInt(PointUserDTO::getChangedPoint)
+                        .sum() / entry.getValue().size());
+
+                pointStatusVOList.add(pointStatusVO);
+            }
+
+            return pointStatusVOList;
         } else {
             return null;
         }
-
-        return null;
     }
 
     /**
@@ -238,7 +319,12 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     private static String determineTimeRange(PointUserDTO dto, String timeRange) {
         // 在这里实现根据DTO中的时间属性确定时间范围的逻辑
         // 返回时间范围的标识，比如字符串
-        return "TimeRangeA";
+        if ("month".equals(timeRange)) {
+            return dto.getChangeTime().getMonth().toString();
+        } else if ("week".equals(timeRange)) {
+            return dto.getChangeTime().toLocalDate().toString();
+        }
+        return "";
     }
 
 }
