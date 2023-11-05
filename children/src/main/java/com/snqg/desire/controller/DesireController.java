@@ -22,6 +22,7 @@ public class DesireController {
     @Autowired
     private DesireService desireService;
 
+
     @ApiOperation("添加一个愿望")
     @GetMapping("/addDesire")
     public Response<AddDesireResponse> addDesire(@RequestBody AddDesireRequest request){
