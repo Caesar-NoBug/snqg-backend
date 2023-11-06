@@ -32,6 +32,7 @@
                 user1_id = #{userBId} AND user2_id = #{userAId}
             )
     </select>
+
     <select id="pullMessage" resultType="com.snqg.chat.entity.Message">
         SELECT user_a.username AS sender, sender_id, user_b.username AS receiver, receiver_id, content, send_time
         FROM temp_message
@@ -39,8 +40,9 @@
                  JOIN `user` as user_b ON receiver_id = user_b.id
         WHERE send_time > #{startTime}
     </select>
+
     <select id="selectFriendList" resultType="com.snqg.domain.response.chat.FriendVO">
-        SELECT DISTINCT id, username
+        SELECT DISTINCT id, username, avatar
         FROM user
         WHERE id IN (
             SELECT user1_id
