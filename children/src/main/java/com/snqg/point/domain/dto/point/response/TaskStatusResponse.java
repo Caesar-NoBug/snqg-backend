@@ -8,6 +8,6 @@ import java.util.List;
 
 @Data
 public class TaskStatusResponse {
-    @ApiModelProperty(value = "返回完成任务数量列表")
+    @ApiModelProperty(value = "返回任务完成数量列表，用于绘图")
     private List<TaskStatusVO> taskStatusVOList;
 }

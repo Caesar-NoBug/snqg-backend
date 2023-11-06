@@ -9,8 +9,7 @@ import com.snqg.point.domain.dto.product.response.SearchResponse;
 import com.snqg.point.domain.vo.ProductVO;
 import com.snqg.point.entity.Product;
 import com.snqg.point.service.ProductService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +25,30 @@ public class ProductController {
     private ProductService productService; // 服务层的引用
     @ApiOperation("搜索商品")
     @GetMapping("/search")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "isDiscounted", value = "请求：在积分商城页面之中进行商品的搜索；" +
+                    "参数功能：搜索的商品是否处于打折状态；" +
+                    "参数数据类型：整数；" +
+                    "1)0, 表示只搜索处于打折状态的商品；" +
+                    "2)1, 表示搜索所有状态的商品；", example = "1", required = true),
+            @ApiImplicitParam(name = "productName", value = "请求：在积分商城页面之中进行商品的搜索；" +
+                    "参数功能：在数据库之中模糊搜索传入的字符串；" +
+                    "参数数据类型：字符串；", example = "老人与海", required = true),
+            @ApiImplicitParam(name = "type", value = "请求：在积分商城页面之中进行商品的搜索；" +
+                    "参数功能：规定商品类型进行搜索；" +
+                    "参数数据类型：整数；" +
+                    "1)1, 代表检索食品；" +
+                    "2)2, 代表检索书籍；" +
+                    "3)3, 代表检索学习用品；" +
+                    "4)其他，表示检索范围不限；", example = "2", required = true)
+    })
     public Response<SearchResponse> searchProducts(
-            @RequestBody SearchRequest searchRequest) {
+            @RequestParam int isDiscounted,
+            @RequestParam String productName,
+            @RequestParam int type) {
 
         List<ProductVO> productList = productService.searchProduct(
-                searchRequest.getIsDiscounted(),
-                searchRequest.getProductName(),
-                searchRequest.getCategory());
+                isDiscounted, productName, type);
 
         SearchResponse searchResponse = new SearchResponse();
         searchResponse.setProductVOList(productList);
@@ -44,9 +60,11 @@ public class ProductController {
     public Response<PurchaseResponse> purchaseProduct(
             @RequestBody PurchaseRequest purchaseRequest) {
 
+        System.out.println("purchaseRequest = " + purchaseRequest);
+
         String userId = UserHolder.getUserId();
         // 在这里执行积分购买商品的逻辑
-        String productId = purchaseRequest.getProductId();
+        int productId = purchaseRequest.getProductId();
         String purchaseResult = productService.purchaseProduct(userId, productId);
 
         PurchaseResponse purchaseResponse = new PurchaseResponse();

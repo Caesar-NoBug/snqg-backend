@@ -34,14 +34,15 @@
         user u ON p.user_id = u.id
         WHERE
         u.is_delete != 1
+        AND
         p.changed_point > 0
         <!-- 添加时间范围限制 -->
         <if test="timeRangeSQL != null">
             AND ${timeRangeSQL}
         </if>
         <!-- 添加地址范围限制 -->
-        <if test="rangkingRangeSQL != null">
-            AND ${rangkingRangeSQL}
+        <if test="rankingRangeSQL != null">
+            AND ${rankingRangeSQL}
         </if>
     </select>
 

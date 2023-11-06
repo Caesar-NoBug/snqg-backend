@@ -3,6 +3,7 @@ package com.snqg.point.service.impl;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.snqg.children.entity.User;
 import com.snqg.children.mapper.UserMapper;
 import com.snqg.point.domain.MsPointStruct;
 import com.snqg.point.domain.vo.PointStatusVO;
@@ -39,6 +40,9 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     @Autowired
     private PointMapper pointMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     /**
      * 获取积分获取记录
      * @param userId
@@ -48,8 +52,6 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     @Override
     public List<PointVO> getPointHistory(String userId, String type) {
 
-        List<Point> pointHistoryList = new ArrayList<>();
-
         QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
 
@@ -57,18 +59,22 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             queryWrapper.gt("changed_point", 0);
         } else if ("expense".equals(type)) {
             queryWrapper.lt("changed_point", 0);
+        } else if ("all".equals(type)) {
+            // 不需要额外的条件
         } else {
+            // 未知的积分类型
             return null;
         }
 
         queryWrapper.orderByDesc("change_time"); // 按时间从新到旧排序
 
-        pointHistoryList = pointMapper.selectList(queryWrapper);
+        List<Point> pointHistoryList = pointMapper.selectList(queryWrapper);
+//        System.out.println(pointHistoryList);
 
         List<PointVO> pointVOList = new ArrayList<>();
         for (Point pointHistory : pointHistoryList) {
             // 根据 pointHistory 数据映射到 PointVO 对象
-            PointVO pointVO = msPointStruct.pointToVO(pointHistory);
+            PointVO pointVO = msPointStruct.toPointVO(pointHistory);
             pointVOList.add(pointVO);
         }
 
@@ -161,7 +167,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         if (rankingRange.equals("system")) {
             params.put("rankingRangeSQL", "1=1");
         } else {
-            params.put("rankingRangeSQL", String.format("u.address = %s", rankingRange));
+            params.put("rankingRangeSQL", String.format("u.address = \"%s\"", rankingRange));
         }
 
 
@@ -183,17 +189,26 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     @Override
     public int getPointRank(String userId, String timeRange, String rankingRange) {
 
+//        System.out.println("userId: " + userId);
+//        System.out.println("timeRange: " + timeRange);
+//        System.out.println("rankingRange: " + rankingRange);
+
         List<PointUserDTO> pointUserDTOList = getPointUserDTOList(timeRange, rankingRange);
+
+//        System.out.println("pointUserDTOList: " + pointUserDTOList);
+
         if (pointUserDTOList != null) {
             Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
                     .collect(Collectors.groupingBy(PointUserDTO::getUserId,
                             Collectors.summingInt(PointUserDTO::getChangedPoint)));
 
+//            System.out.println("totalPointsByUserId: " + totalPointsByUserId);
+
             List<String> sortedKeys = totalPointsByUserId.entrySet().stream()
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
-
+//            System.out.println("sortedKeys: " + sortedKeys);
 
             return sortedKeys.indexOf(userId) + 1;
         } else {
@@ -230,10 +245,13 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
      */
     @Override
     public List<TaskStatusVO> getDrawTaskData(String userId, String timeRange) {
+
+//        User user = userMapper.selectById(userId);
+
         List<PointUserDTO> pointUserDTOList;
         if (timeRange.equals("mouth")) {
             pointUserDTOList = getPointUserDTOList("year", "system");
-        } else if (timeRange.equals("week")) {
+        } else if (timeRange.equals("day")) {
             pointUserDTOList = getPointUserDTOList("week", "system");
         } else {
             return null;
@@ -274,18 +292,26 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     @Override
     public List<PointStatusVO> getDrawPointData(String userId, String timeRange) {
 
+//        User user = userMapper.selectById(userId);
+        System.out.println("userId: " + userId);
+        System.out.println("timeRange: " + timeRange);
+
         List<PointUserDTO> pointUserDTOList;
         if (timeRange.equals("mouth")) {
             pointUserDTOList = getPointUserDTOList("year", "system");
-        } else if (timeRange.equals("week")) {
+        } else if (timeRange.equals("day")) {
             pointUserDTOList = getPointUserDTOList("week", "system");
         } else {
             return null;
         }
 
+        System.out.println("pointUserDTOList: " + pointUserDTOList);
+
         if (pointUserDTOList != null) {
             Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
                     .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+
+            System.out.println("groupedByTimeRange: " + groupedByTimeRange);
 
             List<PointStatusVO> pointStatusVOList = new ArrayList<>();
             for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
@@ -303,6 +329,8 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 
                 pointStatusVOList.add(pointStatusVO);
             }
+
+            System.out.println("pointStatusVOList: " + pointStatusVOList);
 
             return pointStatusVOList;
         } else {
