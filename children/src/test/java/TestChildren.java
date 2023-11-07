@@ -1,9 +1,11 @@
 import com.snqg.ChildrenApplication;
 import com.snqg.chat.mapper.MessageMapper;
+import com.snqg.children.constant.RedisPrefix;
 import com.snqg.children.controller.ChildrenController;
 import com.snqg.children.mapper.UserMapper;
 import com.snqg.common.util.JwtUtil;
 import com.snqg.common.util.RedisCache;
+import com.snqg.common.util.StrEncoder;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -61,8 +63,10 @@ public class TestChildren {
     /*@Test
     public void testDB() {
         System.out.println(userMapper.selectUserById("o2HEN5a1-62AL1SDc18g4lW7PQUg"));
-    }*/
-    /*@Test
+
+    }
+
+    @Test
     public void insertTestData() {
         String token = JwtUtil.createJWT("666");
 

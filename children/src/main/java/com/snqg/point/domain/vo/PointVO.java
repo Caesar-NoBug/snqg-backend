@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 //@NoArgsConstructor
 //@AllArgsConstructor
 public class PointVO {
-    @ApiModelProperty(value = "用户id", example = "12423")
-    private String userId;
+//    @ApiModelProperty(value = "用户id", example = "12423")
+//    private String userId;
 
     @ApiModelProperty(value = "积分改变量", example = "18")
     private Integer changedPoint;

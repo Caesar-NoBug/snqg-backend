@@ -7,5 +7,5 @@ import lombok.Data;
 public class PurchaseResponse {
 
     @ApiModelProperty(value = "message", example = "购买成功")
-    private String message;
+    private String purchaseResult;
 }

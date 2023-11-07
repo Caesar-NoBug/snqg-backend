@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface ProductMapper extends BaseMapper<Product> {
 
+    Product selectProductById(int productId);
+
 }
 
 

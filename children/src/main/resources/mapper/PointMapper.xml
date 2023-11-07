@@ -13,10 +13,10 @@
     </resultMap>
 
     <resultMap id="pointUserMap" type="com.snqg.point.domain.dto.point.PointUserDTO">
-        <result property="userId" column="user_id"/>
-        <result property="changedPoint" column="changed_point"/>
-        <result property="changeTime" column="change_time"/>
-        <result property="address" column="address"/>
+        <result property="userId" column="user_id" jdbcType="VARCHAR"/>
+        <result property="changedPoint" column="changed_point" jdbcType="INTEGER"/>
+        <result property="changeTime" column="change_time" jdbcType="TIMESTAMP"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -34,14 +34,15 @@
         user u ON p.user_id = u.id
         WHERE
         u.is_delete != 1
+        AND
         p.changed_point > 0
         <!-- 添加时间范围限制 -->
         <if test="timeRangeSQL != null">
             AND ${timeRangeSQL}
         </if>
         <!-- 添加地址范围限制 -->
-        <if test="rangkingRangeSQL != null">
-            AND ${rangkingRangeSQL}
+        <if test="rankingRangeSQL != null">
+            AND ${rankingRangeSQL}
         </if>
     </select>
 

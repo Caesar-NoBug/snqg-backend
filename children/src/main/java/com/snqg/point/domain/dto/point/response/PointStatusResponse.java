@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class PointStatusResponse {
 
-    @ApiModelProperty(value = "返回积分绘图数据列表")
+    @ApiModelProperty(value = "返回积分获取情况数据列表，用于绘图")
     private List<PointStatusVO> pointStatusVOList;
 
 }
