@@ -33,5 +33,5 @@ public interface ProductService extends IService<Product> {
      * @param productId
      * @return
      */
-    String purchaseProduct(String userId, int productId);
+    int purchaseProduct(String userId, int productId);
 }

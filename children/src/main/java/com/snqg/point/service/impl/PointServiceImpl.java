@@ -124,7 +124,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             queryWrapper.gt("changed_point", 0);
         } else {
             // 未知的积分类型
-            return -1;
+            return -2;
         }
 
         List<Point> pointsList = pointMapper.selectList(queryWrapper);
