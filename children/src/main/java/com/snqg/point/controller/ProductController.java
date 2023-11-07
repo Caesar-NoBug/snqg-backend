@@ -33,7 +33,8 @@ public class ProductController {
                     "2)1, 表示搜索所有状态的商品；", example = "1", required = true),
             @ApiImplicitParam(name = "productName", value = "请求：在积分商城页面之中进行商品的搜索；" +
                     "参数功能：在数据库之中模糊搜索传入的字符串；" +
-                    "参数数据类型：字符串；", example = "老人与海", required = true),
+                    "参数数据类型：字符串；" +
+                    "补充说明：实际上是一个可选的参数，如果选择不传入此参数则会将所有商品都搜索出来", example = "老人与海"),
             @ApiImplicitParam(name = "type", value = "请求：在积分商城页面之中进行商品的搜索；" +
                     "参数功能：规定商品类型进行搜索；" +
                     "参数数据类型：整数；" +
@@ -44,7 +45,7 @@ public class ProductController {
     })
     public Response<SearchResponse> searchProducts(
             @RequestParam int isDiscounted,
-            @RequestParam String productName,
+            @RequestParam(required = false) String productName,
             @RequestParam int type) {
 
         List<ProductVO> productList = productService.searchProduct(
@@ -65,11 +66,19 @@ public class ProductController {
         String userId = UserHolder.getUserId();
         // 在这里执行积分购买商品的逻辑
         int productId = purchaseRequest.getProductId();
-        String purchaseResult = productService.purchaseProduct(userId, productId);
+        int purchaseResult = productService.purchaseProduct(userId, productId);
 
         PurchaseResponse purchaseResponse = new PurchaseResponse();
-        purchaseResponse.setPurchaseResult(purchaseResult);
 
-        return Response.ok(purchaseResponse);
+        if (purchaseResult == 0) {
+            purchaseResponse.setPurchaseResult("购买成功");
+            return Response.ok(purchaseResponse);
+        } else if (purchaseResult == 1) {
+            return Response.error("积分不足");
+        } else if (purchaseResult == 2) {
+            return Response.error("商品不存在");
+        } else {
+            return Response.error("未知错误");
+        }
     }
 }

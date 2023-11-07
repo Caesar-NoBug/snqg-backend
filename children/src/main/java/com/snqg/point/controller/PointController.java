@@ -51,6 +51,9 @@ public class PointController {
             totalPoints = pointService.getTotalPoints(userId, "accumulated", "total");
         }
 
+        if (totalPoints == -1) {
+            return Response.error("传入参数错误，获取积分总额失败");
+        }
         TotalPointsResponse totalPointsResponse = new TotalPointsResponse();
         totalPointsResponse.setTotalPoints(totalPoints);
         return Response.ok(totalPointsResponse);
@@ -77,6 +80,10 @@ public class PointController {
             pointRecords = pointService.getPointHistory(userId, "income");
         } else if ("expense".equals(type)) {
             pointRecords = pointService.getPointHistory(userId, "expense");
+        }
+
+        if (pointRecords == null) {
+            return Response.error("传入参数错误，获取积分记录失败");
         }
 
         PointHistoryResponse pointHistoryResponse = new PointHistoryResponse();
@@ -112,6 +119,10 @@ public class PointController {
         int pointsRanking = pointService.getPointRank(userId,
                 timeRange, rankingRange);
 
+        if (pointsRanking == 0) {
+            return Response.error("传入参数错误，获取积分排名失败");
+        }
+
         PointRankResponse pointRankResponse = new PointRankResponse();
         pointRankResponse.setPointRank(pointsRanking);
         return Response.ok(pointRankResponse);
@@ -132,6 +143,9 @@ public class PointController {
         List<TaskStatusVO> taskStatusVOList = pointService.
                 getDrawTaskData(userId, timeRange);
 
+        if (taskStatusVOList == null) {
+            return Response.error("传入参数错误，获取绘图数据失败（完成任务个数）");
+        }
         TaskStatusResponse taskStatusResponse = new TaskStatusResponse();
         taskStatusResponse.setTaskStatusVOList(taskStatusVOList);
         return Response.ok(taskStatusResponse);
@@ -150,6 +164,9 @@ public class PointController {
         List<PointStatusVO> pointStatusVOList = pointService.
                 getDrawPointData(userId, timeRange);
 
+        if (pointStatusVOList == null) {
+            return Response.error("传入参数错误，获取绘图数据失败（积分个数）");
+        }
         PointStatusResponse pointStatusResponse = new PointStatusResponse();
         pointStatusResponse.setPointStatusVOList(pointStatusVOList);
         return Response.ok(pointStatusResponse);
