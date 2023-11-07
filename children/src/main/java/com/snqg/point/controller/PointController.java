@@ -92,7 +92,7 @@ public class PointController {
                     "参数功能：设定排名的时间范围:" +
                     "1)传入\"total\", 限定时间范围为全部（对应总积分）" +
                     "2)传入\"year\", 限定时间范围为年（对应年度积分）" +
-                    "3)传入\"mouth\", 限定时间范围为月（对应月度积分）" +
+                    "3)传入\"month\", 限定时间范围为月（对应月度积分）" +
                     "4)传入\"week\", 限定时间范围为周（对应近七日在组内排名，传入这个参数时rankingRange请设置为\"group\"）",
                     example = "total"),
             @ApiImplicitParam(name = "rankingRange", value = "请求：在积分排名界面之中显示积分排名的数值；" +
@@ -123,9 +123,9 @@ public class PointController {
     @GetMapping("/drawTaskCount")
     @ApiImplicitParam(name = "timeRange", value = "请求：在积分排名界面之中绘制每月/日完成任务个数的图像；" +
             "参数功能：设定曲线每一个点所跨越的时间范围:" +
-            "3)传入\"mouth\", 限定时间范围为月（返回个人月度完成任务总数和系统平均完成任务总数）；" +
+            "3)传入\"month\", 限定时间范围为月（返回个人月度完成任务总数和系统平均完成任务总数）；" +
             "4)传入\"day\", 限定时间范围为天（返回个人天度～～）；",
-            example = "mouth")
+            example = "month")
     public Response<TaskStatusResponse> getTaskCountToDraw(@RequestParam String timeRange) {
 
         String userId = UserHolder.getUserId();
@@ -141,9 +141,9 @@ public class PointController {
     @GetMapping("/drawPointCount")
     @ApiImplicitParam(name = "timeRange", value = "请求：在积分排名界面之中绘制每月/日积分个数的图像；" +
             "参数功能：设定曲线每一个点所跨越的时间范围:" +
-            "3)传入\"mouth\", 限定时间范围为月（返回个人月度积分总数和系统平均积分总数）；" +
+            "3)传入\"month\", 限定时间范围为月（返回个人月度积分总数和系统平均积分总数）；" +
             "4)传入\"day\", 限定时间范围为天（返回个人天度～～）；",
-            example = "mouth")
+            example = "month")
     public Response<PointStatusResponse> getPointCountToDraw(@RequestParam String timeRange) {
 
         String userId = UserHolder.getUserId();

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,18 +146,27 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     private List<PointUserDTO> getPointUserDTOList(String timeRange, String rankingRange) {
 
         Map<String, String> params = new HashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String now = LocalDateTime.now().format(formatter);
+        System.out.println("now: " + now);
         if (timeRange.equals("year")) {
             // 查询过去一年的记录
-            params.put("timeRangeSQL", String.format("p.change_time >= %s AND p.change_time <= %s",
-                    LocalDate.now().minusYears(1), LocalDate.now()));
+            String oneYearAgo = LocalDateTime.now().minusYears(1).format(formatter);
+            System.out.println("oneYearAgo: " + oneYearAgo);
+            params.put("timeRangeSQL", String.format("p.change_time >= \"%s\" AND p.change_time <= \"%s\"",
+                    oneYearAgo, now));
         } else if (timeRange.equals("month")) {
             // 查询过去一个月的记录
-            params.put("timeRangeSQL", String.format("p.change_time >= %s AND p.change_time <= %s",
-                    LocalDate.now().minusMonths(1), LocalDate.now()));
+            String oneMonthAgo = LocalDateTime.now().minusMonths(1).format(formatter);
+            System.out.println("oneMonthAgo: " + oneMonthAgo);
+            params.put("timeRangeSQL", String.format("p.change_time >= \"%s\" AND p.change_time <= \"%s\"",
+                    oneMonthAgo, now));
         } else if (timeRange.equals("week")) {
             // 查询过去一周的记录
-            params.put("timeRangeSQL", String.format("p.change_time >= %s AND p.change_time <= %s",
-                    LocalDate.now().minusWeeks(1), LocalDate.now()));
+            String oneWeekAgo = LocalDateTime.now().minusWeeks(1).format(formatter);
+            System.out.println("oneWeekAgo: " + oneWeekAgo);
+            params.put("timeRangeSQL", String.format("p.change_time >= \"%s\" AND p.change_time <= \"%s\"",
+                    oneWeekAgo, now));
         } else if (timeRange.equals("total")) {
             // 总积分，不需要额外的时间范围条件
             params.put("timeRangeSQL", "1=1");
@@ -192,23 +202,27 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 //        System.out.println("userId: " + userId);
 //        System.out.println("timeRange: " + timeRange);
 //        System.out.println("rankingRange: " + rankingRange);
+        if (rankingRange.equals("group")) {
+            User user = userMapper.selectById(userId);
+            rankingRange = user.getAddress();
+        }
 
         List<PointUserDTO> pointUserDTOList = getPointUserDTOList(timeRange, rankingRange);
 
-//        System.out.println("pointUserDTOList: " + pointUserDTOList);
+        System.out.println("pointUserDTOList: " + pointUserDTOList);
 
         if (pointUserDTOList != null) {
             Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
                     .collect(Collectors.groupingBy(PointUserDTO::getUserId,
                             Collectors.summingInt(PointUserDTO::getChangedPoint)));
 
-//            System.out.println("totalPointsByUserId: " + totalPointsByUserId);
+            System.out.println("totalPointsByUserId: " + totalPointsByUserId);
 
             List<String> sortedKeys = totalPointsByUserId.entrySet().stream()
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
-//            System.out.println("sortedKeys: " + sortedKeys);
+            System.out.println("sortedKeys: " + sortedKeys);
 
             return sortedKeys.indexOf(userId) + 1;
         } else {
@@ -249,7 +263,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 //        User user = userMapper.selectById(userId);
 
         List<PointUserDTO> pointUserDTOList;
-        if (timeRange.equals("mouth")) {
+        if (timeRange.equals("month")) {
             pointUserDTOList = getPointUserDTOList("year", "system");
         } else if (timeRange.equals("day")) {
             pointUserDTOList = getPointUserDTOList("week", "system");
@@ -262,6 +276,13 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
                     .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
 
             List<TaskStatusVO> taskStatusVOList = new ArrayList<>();
+
+            // 计算有几个孩子，输出是一个整数
+            int childCount = (int) pointUserDTOList.stream()
+                    .map(PointUserDTO::getUserId)
+                    .distinct()
+                    .count();
+
             for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
 
                 TaskStatusVO taskStatusVO = new TaskStatusVO();
@@ -270,10 +291,17 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
                 taskStatusVO.setUserTaskCount((int) entry.getValue().stream()
                         .filter(dto -> dto.getUserId().equals(userId))
                         .count());
-                taskStatusVO.setSystemAverageTaskCount((double) entry.getValue().size() / entry.getValue().size());
+                taskStatusVO.setSystemAverageTaskCount((double) entry.getValue().size() / childCount);
 
                 taskStatusVOList.add(taskStatusVO);
             }
+
+            // 将taskStatusVOList按照recordTime进行排序
+            taskStatusVOList.sort((o1, o2) -> {
+                String recordTime1 = o1.getRecordTime();
+                String recordTime2 = o2.getRecordTime();
+                return recordTime1.compareTo(recordTime2);
+            });
 
             return taskStatusVOList;
         } else {
@@ -297,7 +325,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         System.out.println("timeRange: " + timeRange);
 
         List<PointUserDTO> pointUserDTOList;
-        if (timeRange.equals("mouth")) {
+        if (timeRange.equals("month")) {
             pointUserDTOList = getPointUserDTOList("year", "system");
         } else if (timeRange.equals("day")) {
             pointUserDTOList = getPointUserDTOList("week", "system");
@@ -314,6 +342,13 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             System.out.println("groupedByTimeRange: " + groupedByTimeRange);
 
             List<PointStatusVO> pointStatusVOList = new ArrayList<>();
+
+            // 计算有几个孩子，输出是一个整数
+            int childCount = (int) pointUserDTOList.stream()
+                    .map(PointUserDTO::getUserId)
+                    .distinct()
+                    .count();
+
             for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
 
                 PointStatusVO pointStatusVO = new PointStatusVO();
@@ -325,11 +360,17 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
                         .sum());
                 pointStatusVO.setSystemAverage((double) entry.getValue().stream()
                         .mapToInt(PointUserDTO::getChangedPoint)
-                        .sum() / entry.getValue().size());
+                        .sum() / childCount);
 
                 pointStatusVOList.add(pointStatusVO);
             }
 
+            // 将pointStatusVOList按照recordTime进行排序
+            pointStatusVOList.sort((o1, o2) -> {
+                String recordTime1 = o1.getRecordTime();
+                String recordTime2 = o2.getRecordTime();
+                return recordTime1.compareTo(recordTime2);
+            });
             System.out.println("pointStatusVOList: " + pointStatusVOList);
 
             return pointStatusVOList;
@@ -348,9 +389,16 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         // 在这里实现根据DTO中的时间属性确定时间范围的逻辑
         // 返回时间范围的标识，比如字符串
         if ("month".equals(timeRange)) {
-            return dto.getChangeTime().getMonth().toString();
-        } else if ("week".equals(timeRange)) {
-            return dto.getChangeTime().toLocalDate().toString();
+//            System.out.println("dto.getChangeTime().getMonth().toString(): " + dto.getChangeTime().getMonth().toString());
+//            return dto.getChangeTime().getMonth().toString();
+            // 返回月份的字符串，格式为：2021-09
+            return dto.getChangeTime().toLocalDate().toString().substring(0, 7);
+        } else if ("day".equals(timeRange)) {
+//            System.out.println("dto.getChangeTime().toLocalDate().toString(): " + dto.getChangeTime().toLocalDate().toString());
+            // 返回日期的字符串，格式为：09-01
+            return dto.getChangeTime().toLocalDate().toString().substring(5);
+
+//            return dto.getChangeTime().toLocalDate().toString();
         }
         return "";
     }
