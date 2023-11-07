@@ -26,14 +26,14 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private RedisCache redisCache;
 
     public static final PrefixMatcher matcher = new PrefixMatcher("/children/login",
-            "/doc.html", "/img/*", "/favicon.ico", "/swagger-resources", "/v2*", "/webjars*", "/swagger-ui*");
+            "/doc.html", "/file/*", "/favicon.ico", "/swagger-resources", "/v2*", "/webjars*", "/swagger-ui*");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String token = request.getHeader("token");
         String uri = request.getRequestURI();
-        System.out.println(uri);
+        System.out.println("当前访问路径:" + uri);
 
         //如果uri与白名单匹配，则直接放行
         if(matcher.match(uri)) {

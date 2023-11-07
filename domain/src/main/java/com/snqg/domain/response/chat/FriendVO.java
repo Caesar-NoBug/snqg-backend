@@ -10,5 +10,9 @@ public class FriendVO {
     private String id;
 
     @ApiModelProperty(value = "好友用户名", example = "caesar")
-    private String name;
+    private String username;
+
+    @ApiModelProperty(value = "好友头像", example = "https://smms.app/image/XnFAaDcvLwtyB2M")
+    private String avatar;
+
 }

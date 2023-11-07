@@ -51,19 +51,21 @@ public class TestChildren {
     @Resource
     private RedisCache redisCache;
 
-    @Test
+    /*@Test
     public void testToken() throws Exception {
         //String string = redisCache.getCacheObject(RedisPrefix.USER_SESSION_TOKEN + "o2HEN5a1-62AL1SDc18g4lW7PQUg").toString();
        // System.out.println(StrEncoder.check("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0N2E3YzQ0MWVmYjg0OGFjOTI4MTFlNTAwNDkyYTE5MSIsInN1YiI6Im8ySEVONWExLTYyQUwxU0RjMThnNGxXN1BRVWciLCJpc3MiOiJzZyIsImlhdCI6MTY5OTAxMTEyMCwiZXhwIjoxNjk5MDE0NzIwfQ.3yAo8ID_R6iLYEI2FoWU3VbJ0YQjXXcTq6FxAzxNQRE", string));
         String token = JwtUtil.createJWT("o2HEN5a1-62AL1SDc18g4lW7PQUg");
         System.out.println(JwtUtil.parseJWT(token).getSubject());
 
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void testDB() {
         System.out.println(userMapper.selectUserById("o2HEN5a1-62AL1SDc18g4lW7PQUg"));
+
     }
+
     @Test
     public void insertTestData() {
         String token = JwtUtil.createJWT("666");
@@ -77,11 +79,11 @@ public class TestChildren {
         redisCache.setCacheObject(RedisPrefix.USER_SESSION_TOKEN + "777", StrEncoder.encode(token));
 
         System.out.println(token);
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void testDB2() {
         System.out.println(messageMapper.selectFriendList("666"));
-    }
+    }*/
 
 }

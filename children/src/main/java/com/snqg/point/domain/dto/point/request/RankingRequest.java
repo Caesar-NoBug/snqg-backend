@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class RankingRequest {
+  
     @ApiModelProperty(value = "请求：在积分排名界面之中显示积分排名的数值；" +
             "参数功能：设定排名的时间范围:" +
             "1)传入\"total\", 限定时间范围为全部（对应总积分）" +
@@ -13,6 +14,7 @@ public class RankingRequest {
             "4)传入\"week\", 限定时间范围为周（对应近七日在组内排名，传入这个参数时rankingRange请设置为\"group\"）",
             example = "total")
     private String timeRange;
+  
     @ApiModelProperty(value = "请求：在积分排名界面之中显示积分排名的数值；" +
             "参数功能：设定排名的组别范围:" +
             "1)传入\"system\", 表示在系统范围内进行排名（会在整个数据库之中进行检索排名）" +
