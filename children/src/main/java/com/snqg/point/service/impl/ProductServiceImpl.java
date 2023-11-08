@@ -67,7 +67,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
             queryWrapper.eq("type", type); // 等于type的条件
         }
 
-        queryWrapper.like("name", productName);
+        if (productName != null) {
+            queryWrapper.like("name", productName);
+        }
 
         // 执行查询
         List<Product> productList = productMapper.selectList(queryWrapper);
@@ -91,24 +93,24 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
      * @return
      */
     @Override
-    public String purchaseProduct(String userId, int productId) {
+    public int purchaseProduct(String userId, int productId) {
 
         // 根据 productId 查询商品信息
         Product product = productMapper.selectProductById(productId);
 
         if (product == null) {
-            return "商品不存在";
+            return 1; // 商品不存在
         }
 
         // 检查商品库存是否充足
         if (product.getCount() <= 0) {
-            return "商品库存不足";
+            return 2; // 商品库存不足
         }
 
         // 检查用户积分是否充足
         int totalPoints = pointService.getTotalPoints(userId, "remaining", "total");
         if (totalPoints < product.getPrice()) {
-            return "积分不足";
+            return 3; // 积分不足
         }
 
         // 创建订单
@@ -123,7 +125,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         product.setCount(product.getCount() - 1);
         productMapper.updateById(product);
 
-        return "购买成功";
+        return 0;
     }
 }
 

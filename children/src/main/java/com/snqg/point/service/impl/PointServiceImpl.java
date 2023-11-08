@@ -9,6 +9,7 @@ import com.snqg.point.domain.MsPointStruct;
 import com.snqg.point.domain.vo.PointStatusVO;
 import com.snqg.point.domain.dto.point.PointUserDTO;
 import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.vo.RankPercentageVO;
 import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.snqg.point.service.PointService;
@@ -124,7 +125,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             queryWrapper.gt("changed_point", 0);
         } else {
             // 未知的积分类型
-            return -1;
+            return -2;
         }
 
         List<Point> pointsList = pointMapper.selectList(queryWrapper);
@@ -209,20 +210,20 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 
         List<PointUserDTO> pointUserDTOList = getPointUserDTOList(timeRange, rankingRange);
 
-        System.out.println("pointUserDTOList: " + pointUserDTOList);
+//        System.out.println("pointUserDTOList: " + pointUserDTOList);
 
         if (pointUserDTOList != null) {
             Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
                     .collect(Collectors.groupingBy(PointUserDTO::getUserId,
                             Collectors.summingInt(PointUserDTO::getChangedPoint)));
 
-            System.out.println("totalPointsByUserId: " + totalPointsByUserId);
+//            System.out.println("totalPointsByUserId: " + totalPointsByUserId);
 
             List<String> sortedKeys = totalPointsByUserId.entrySet().stream()
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                     .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
-            System.out.println("sortedKeys: " + sortedKeys);
+//            System.out.println("sortedKeys: " + sortedKeys);
 
             return sortedKeys.indexOf(userId) + 1;
         } else {
@@ -278,10 +279,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             List<TaskStatusVO> taskStatusVOList = new ArrayList<>();
 
             // 计算有几个孩子，输出是一个整数
-            int childCount = (int) pointUserDTOList.stream()
-                    .map(PointUserDTO::getUserId)
-                    .distinct()
-                    .count();
+            double childCount = userMapper.countChildren();
 
             for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
 
@@ -307,6 +305,60 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         } else {
             return null;
         }
+    }
+
+    /**
+     * 获取积分排名百分比
+     * @param x
+     * @return
+     */
+    @Override
+    public List<RankPercentageVO> getRankPercentage(String userId, int x) {
+
+        // 计算有几个孩子，输出是一个整数，但是为了之后计算，将其转化为浮点数
+        double childCount = userMapper.countChildren();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        List<RankPercentageVO> rankPercentageVOList = new ArrayList<>();
+        for (int i = 0; i < x; i++) {
+            Map<String, String> params = new HashMap<>();
+            String xMonthAgo = LocalDateTime.now().minusMonths(i).format(formatter);
+            String xPlus1MonthAgo = LocalDateTime.now().minusMonths(i + 1).format(formatter);
+//            System.out.println("xMonthAgo: " + xMonthAgo);
+            params.put("timeRangeSQL", String.format("p.change_time >= \"%s\" AND p.change_time <= \"%s\"",
+                    xPlus1MonthAgo, xMonthAgo));
+            params.put("rankingRangeSQL", "1=1");
+
+            List<PointUserDTO> pointUserDTOList = pointMapper.selectPointUserRecords(
+                    params.get("timeRangeSQL"),
+                    params.get("rankingRangeSQL"));
+
+            if (pointUserDTOList != null) {
+                Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
+                        .collect(Collectors.groupingBy(PointUserDTO::getUserId,
+                                Collectors.summingInt(PointUserDTO::getChangedPoint)));
+
+                List<String> sortedKeys = totalPointsByUserId.entrySet().stream()
+                        .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toList());
+
+                double rank = sortedKeys.indexOf(userId) + 1;
+                double rankPercentage = rank / childCount;
+
+                RankPercentageVO rankPercentageVO = new RankPercentageVO();
+                rankPercentageVO.setRecordTime(xPlus1MonthAgo.substring(0, 7));
+                rankPercentageVO.setRankPercentage(rankPercentage);
+
+                rankPercentageVOList.add(rankPercentageVO);
+
+            } else {
+                return null;
+            }
+        }
+
+        return rankPercentageVOList;
     }
 
     // ------------------------------------------------------------
@@ -344,10 +396,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             List<PointStatusVO> pointStatusVOList = new ArrayList<>();
 
             // 计算有几个孩子，输出是一个整数
-            int childCount = (int) pointUserDTOList.stream()
-                    .map(PointUserDTO::getUserId)
-                    .distinct()
-                    .count();
+            double childCount = userMapper.countChildren();
 
             for (Map.Entry<String, List<PointUserDTO>> entry : groupedByTimeRange.entrySet()) {
 
@@ -402,6 +451,8 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
         return "";
     }
+
+
 
 }
 

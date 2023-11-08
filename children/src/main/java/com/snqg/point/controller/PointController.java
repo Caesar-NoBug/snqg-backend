@@ -8,6 +8,7 @@ import com.snqg.point.domain.dto.point.request.RankingRequest;
 import com.snqg.point.domain.dto.point.response.*;
 import com.snqg.point.domain.vo.PointStatusVO;
 import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.vo.RankPercentageVO;
 import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.snqg.point.service.PointService;
@@ -51,6 +52,9 @@ public class PointController {
             totalPoints = pointService.getTotalPoints(userId, "accumulated", "total");
         }
 
+        if (totalPoints == -1) {
+            return Response.error("传入参数错误，获取积分总额失败");
+        }
         TotalPointsResponse totalPointsResponse = new TotalPointsResponse();
         totalPointsResponse.setTotalPoints(totalPoints);
         return Response.ok(totalPointsResponse);
@@ -77,6 +81,10 @@ public class PointController {
             pointRecords = pointService.getPointHistory(userId, "income");
         } else if ("expense".equals(type)) {
             pointRecords = pointService.getPointHistory(userId, "expense");
+        }
+
+        if (pointRecords == null) {
+            return Response.error("传入参数错误，获取积分记录失败");
         }
 
         PointHistoryResponse pointHistoryResponse = new PointHistoryResponse();
@@ -112,6 +120,10 @@ public class PointController {
         int pointsRanking = pointService.getPointRank(userId,
                 timeRange, rankingRange);
 
+        if (pointsRanking == 0) {
+            return Response.error("传入参数错误，获取积分排名失败");
+        }
+
         PointRankResponse pointRankResponse = new PointRankResponse();
         pointRankResponse.setPointRank(pointsRanking);
         return Response.ok(pointRankResponse);
@@ -132,6 +144,9 @@ public class PointController {
         List<TaskStatusVO> taskStatusVOList = pointService.
                 getDrawTaskData(userId, timeRange);
 
+        if (taskStatusVOList == null) {
+            return Response.error("传入参数错误，获取绘图数据失败（完成任务个数）");
+        }
         TaskStatusResponse taskStatusResponse = new TaskStatusResponse();
         taskStatusResponse.setTaskStatusVOList(taskStatusVOList);
         return Response.ok(taskStatusResponse);
@@ -150,9 +165,31 @@ public class PointController {
         List<PointStatusVO> pointStatusVOList = pointService.
                 getDrawPointData(userId, timeRange);
 
+        if (pointStatusVOList == null) {
+            return Response.error("传入参数错误，获取绘图数据失败（积分个数）");
+        }
         PointStatusResponse pointStatusResponse = new PointStatusResponse();
         pointStatusResponse.setPointStatusVOList(pointStatusVOList);
         return Response.ok(pointStatusResponse);
+    }
+
+    @ApiOperation("获取积分超越人数百分比(过去x个月)")
+    @GetMapping("/getPointRankPercentage")
+    @ApiImplicitParam(name="x", value = "请求：在积分排名界面之中显示积分超越人数百分比；" +
+            "参数功能：设定超越人数百分比的时间范围：" +
+            "传入\"x\", 限定时间范围为过去x个月；" , example = "4")
+    public Response<PointRankPercentageResponse> getPointRankPercentage(int x) {
+
+        String userId = UserHolder.getUserId();
+        List<RankPercentageVO> rankPercentageVOList = pointService.getRankPercentage(userId, x);
+
+        if (rankPercentageVOList == null) {
+            return Response.error("传入参数错误，获取积分超越人数百分比失败");
+        }
+
+        PointRankPercentageResponse pointRankPercentageResponse = new PointRankPercentageResponse();
+        pointRankPercentageResponse.setRankPercentageList(rankPercentageVOList);
+        return Response.ok(pointRankPercentageResponse);
     }
 
 }
