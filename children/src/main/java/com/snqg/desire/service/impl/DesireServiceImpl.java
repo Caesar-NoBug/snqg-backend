@@ -74,16 +74,17 @@ public class DesireServiceImpl extends ServiceImpl<DesireMapper, Desire>
     //添加一个愿望
     public String addDesire(String childId, String title, String desc) {
 
+        //数据库id自增，不用自己找
         //查找desire库内的最新一个的id，赋值给maxId。这样新id就比之前表最末尾的id大1
-        QueryWrapper<Desire> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("id").last("LIMIT 1");
-        Desire maxIdDesire = desireMapper.selectOne(queryWrapper);
-        int maxId = maxIdDesire != null ? maxIdDesire.getId() : 0;
-        int newId = maxId+1;
+      //  QueryWrapper<Desire> queryWrapper = new QueryWrapper<>();
+       // queryWrapper.orderByDesc("id").last("LIMIT 1");
+      //  Desire maxIdDesire = desireMapper.selectOne(queryWrapper);
+      //  int maxId = maxIdDesire != null ? maxIdDesire.getId() : 0;
+      //  int newId = maxId+1;
 
         Desire desire = new Desire();
         //创建新愿望。进度默认未完成，感谢无
-        desire.setId(newId);
+      //  desire.setId(newId); 无需设置id
         desire.setChildId(childId);
         desire.setTitle(title);
         desire.setDesc(desc);

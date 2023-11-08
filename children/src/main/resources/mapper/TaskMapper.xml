@@ -13,11 +13,12 @@
             <result property="createdBy" column="created_by" jdbcType="VARCHAR"/>
             <result property="progression" column="progression" jdbcType="TINYINT"/>
             <result property="taskurl" column="taskURL" jdbcType="VARCHAR"/>
+            <result property="taskPoint" column="task_point" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,child_id,title,
         type,detail,created_by,
-        progression,taskURL
+        progression,taskURL,task_point
     </sql>
 </mapper>

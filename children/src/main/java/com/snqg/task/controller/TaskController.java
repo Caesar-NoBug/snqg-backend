@@ -1,6 +1,7 @@
 package com.snqg.task.controller;
 
 import com.snqg.domain.response.Response;
+import com.snqg.point.service.PointService;
 import com.snqg.task.domain.dto.task.request.FindHelpRequest;
 import com.snqg.task.domain.dto.task.request.GetTaskRequset;
 import com.snqg.task.domain.dto.task.response.GetTaskResponse;
@@ -22,6 +23,10 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private PointService pointService;
+
     @ApiOperation("完成任务后提交任务请求")
     @GetMapping("/sendTaskFinishRequest")
     public Response<FindHelpFeedbackResponse> sendTaskFinishRequest(

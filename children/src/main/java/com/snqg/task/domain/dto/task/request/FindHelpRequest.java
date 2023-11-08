@@ -14,4 +14,6 @@ public class FindHelpRequest {
     private String detail;
     @ApiModelProperty(value = "pictureUrl", example = "图片的Url")
     private String taskUrl;
+    @ApiModelProperty(value = "任务完成时改变的积分", example = "比如10")
+    private int changePoint;
 }

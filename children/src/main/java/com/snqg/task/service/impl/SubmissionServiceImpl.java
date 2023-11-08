@@ -24,6 +24,7 @@ public class SubmissionServiceImpl extends ServiceImpl<SubmissionMapper, Submiss
 
     @Autowired
     private SubmissionMapper submissionMapper;
+
 //    儿童寻找帮助，返回聊天界面？还是提示发送成功？
     @Override
     public boolean seekHelpTask(int childId, String content) {

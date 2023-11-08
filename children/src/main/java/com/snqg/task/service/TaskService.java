@@ -14,6 +14,6 @@ import java.util.List;
 
 public interface TaskService extends IService<Task> {
 
-    boolean isTrueChildSendTask( int childId, int id, String detail, String taskurl );
+    boolean isTrueChildSendTask( int childId, int id, String detail, String taskurl);
     List<TaskVo> getTaskMessage(int childId);
 }
