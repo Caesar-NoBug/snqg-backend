@@ -22,21 +22,11 @@ public class SubmissionController {
     @ApiOperation("提交求助请求")
     @GetMapping("/setHelpRequest")
     public Response<GiveFeedbackResponse> setHelpRequest(
-            @RequestBody SendTaskFinishRequest calculationTypeRequest
+            @RequestBody SendTaskFinishRequest sendTaskFinishRequest
     ) {
-//        String userId = UserHolder.getUserId();
-//        // 在这里根据calculationType参数的值获取不同类型的积分总额
-//        int totalPoints = 0;
-//
-//        if ("remaining".equals(calculationType)) {
-//            totalPoints = userService.calculateRemainingPoints(userId);
-//        } else if ("accumulated".equals(calculationType)) {
-//            totalPoints = userService.calculateAccumulatedPoints(userId);
-//        } else {
-//            // 可以处理未知类型的情况，如抛出异常或返回默认值
-//        }
-//        return totalPoints;
         GiveFeedbackResponse giveFeedbackResponse = new GiveFeedbackResponse();
+        giveFeedbackResponse.setVolunteer(submissionService.seekHelpTask(
+                sendTaskFinishRequest.getChildId(),sendTaskFinishRequest.getContent()));
         return Response.ok(giveFeedbackResponse);
     }
 

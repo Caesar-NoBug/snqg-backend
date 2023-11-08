@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.snqg.point.mapper.ProductMapper">
 
+<!--    目前不需要写什么东西，基础增删改查已经完成-->
     <resultMap id="BaseResultMap" type="com.snqg.point.entity.Product">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
