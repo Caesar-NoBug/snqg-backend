@@ -18,6 +18,8 @@ public interface UserMapper extends BaseMapper<User> {
     int removeBindInfo(String inviteCode);
 
     int addBindInfo(String inviteCode, User user);
+
+    int countChildren();
 }
 
 

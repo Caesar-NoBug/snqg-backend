@@ -3,6 +3,7 @@ package com.snqg.point.service;
 import com.snqg.point.domain.dto.point.PointUserDTO;
 import com.snqg.point.domain.vo.PointStatusVO;
 import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.vo.RankPercentageVO;
 import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -64,4 +65,6 @@ public interface PointService extends IService<Point> {
      * @return
      */
     List<TaskStatusVO> getDrawTaskData(String userId, String timeRange);
+
+    List<RankPercentageVO> getRankPercentage(String userId, int x);
 }

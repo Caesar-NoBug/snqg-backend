@@ -47,4 +47,10 @@
         WHERE code = #{inviteCode}
     </select>
 
+    <select id="countChildren" resultType="int">
+        SELECT COUNT(*) AS role_count
+        FROM user
+        WHERE role = 1
+    </select>
+
 </mapper>
