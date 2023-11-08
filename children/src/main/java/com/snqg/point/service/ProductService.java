@@ -22,10 +22,10 @@ public interface ProductService extends IService<Product> {
      * 查询商品列表
      * @param isDiscount
      * @param productName
-     * @param category
+     * @param type
      * @return
      */
-    List<ProductVO> searchProduct(int isDiscount, String productName, int category);
+    List<ProductVO> searchProduct(int isDiscount, String productName, int type);
 
     /**
      * 购买商品
@@ -33,5 +33,5 @@ public interface ProductService extends IService<Product> {
      * @param productId
      * @return
      */
-    String purchaseProduct(String userId, String productId);
+    String purchaseProduct(String userId, int productId);
 }

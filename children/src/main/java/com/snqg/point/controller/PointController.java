@@ -1,15 +1,25 @@
 package com.snqg.point.controller;
 
+import com.snqg.context.UserHolder;
 import com.snqg.domain.response.Response;
 import com.snqg.point.domain.dto.point.request.CalculationTypeRequest;
 import com.snqg.point.domain.dto.point.request.PointHistoryRequest;
 import com.snqg.point.domain.dto.point.request.RankingRequest;
 import com.snqg.point.domain.dto.point.response.*;
+import com.snqg.point.domain.vo.PointStatusVO;
+import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.vo.TaskStatusVO;
+import com.snqg.point.entity.Point;
 import com.snqg.point.service.PointService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //积分模块
 @RestController
@@ -19,87 +29,129 @@ public class PointController {
 
     @Autowired
     private PointService pointService;
-//    @Autowired
-//    private SubmissionService submissionService;
 
+    // ---------------------------------------------------------------------------------------------
     @ApiOperation("获取积分总额(累计值或剩余值)")
     @GetMapping("/getTotalPoints")
+    @ApiImplicitParam(name = "calculationType", value = "请求：积分商城界面之中显示积分的剩余值和积分排名界面之中显示积分的累计值；" +
+            "参数功能：选择要显示剩余积分还是累计积分；" +
+            "计算积分剩余值，可以用于显示剩余积分或者累计积分；" +
+            "要显示剩余积分，传入\"remaining\"；" +
+            "要显示累计积分，传入\"accumulated\"；", example = "accumulated")
     public Response<TotalPointsResponse> getTotalPoints(
-            @RequestBody CalculationTypeRequest calculationTypeRequest
+            @RequestParam String calculationType
     ) {
-//        String userId = UserHolder.getUserId();
-//        // 在这里根据calculationType参数的值获取不同类型的积分总额
-//        int totalPoints = 0;
-//
-//        if ("remaining".equals(calculationType)) {
-//            totalPoints = userService.calculateRemainingPoints(userId);
-//        } else if ("accumulated".equals(calculationType)) {
-//            totalPoints = userService.calculateAccumulatedPoints(userId);
-//        } else {
-//            // 可以处理未知类型的情况，如抛出异常或返回默认值
-//        }
-//        return totalPoints;
+        String userId = UserHolder.getUserId();
+        // 在这里根据calculationType参数的值获取不同类型的积分总额
+        int totalPoints = -1;
+
+        if ("remaining".equals(calculationType)) {
+            totalPoints = pointService.getTotalPoints(userId, "remaining", "total");
+        } else if ("accumulated".equals(calculationType)) {
+            totalPoints = pointService.getTotalPoints(userId, "accumulated", "total");
+        }
+
         TotalPointsResponse totalPointsResponse = new TotalPointsResponse();
+        totalPointsResponse.setTotalPoints(totalPoints);
         return Response.ok(totalPointsResponse);
     }
 
-    @ApiOperation("获取积分获取记录")
+    // ---------------------------------------------------------------------------------------------
+    @ApiOperation("获取积分记录")
     @GetMapping("/getPointHistory")
+    @ApiImplicitParam(name = "type", value = "请求：在积分商城界面之中显示积分收支记录（和不背单词之中的界面很像）；" +
+            "参数功能：限定范围，获取积分记录时，可以选择显示:" +
+            "1)\"all\", 显示全部积分记录" +
+            "2)\"expense\", 仅显示积分支出记录" +
+            "3)\"income\", 仅显示积分收入记录", example = "all")
     public Response<PointHistoryResponse> getPointHistory(
-            @RequestBody PointHistoryRequest historyRequest
+            @RequestParam String type
     ) {
-//        String userId = UserHolder.getUserId();
-//        // 在这里根据type参数的值获取不同类型的积分记录
-//        List<PointRecord> pointRecords = new ArrayList<>();
-//
-//        if ("all".equals(type)) {
-//            pointRecords = pointHistoryService.getPointHistoryForUser(userId);
-//        } else if ("income".equals(type)) {
-//            pointRecords = pointHistoryService.getIncomePointHistoryForUser(userId);
-//        } else if ("expense".equals(type)) {
-//            pointRecords = pointHistoryService.getExpensePointHistoryForUser(userId);
-//        } else {
-//            // 可以处理未知类型的情况，如抛出异常或返回默认值
-//        }
-//        return pointHistory;
+        String userId = UserHolder.getUserId();
+        // 在这里根据type参数的值获取不同类型的积分记录
+        List<PointVO> pointRecords = new ArrayList<>();
+
+        if ("all".equals(type)) {
+            pointRecords = pointService.getPointHistory(userId, "all");
+        } else if ("income".equals(type)) {
+            pointRecords = pointService.getPointHistory(userId, "income");
+        } else if ("expense".equals(type)) {
+            pointRecords = pointService.getPointHistory(userId, "expense");
+        }
+
         PointHistoryResponse pointHistoryResponse = new PointHistoryResponse();
+        pointHistoryResponse.setPointRecords(pointRecords);
         return Response.ok(pointHistoryResponse);
     }
 
+    // ---------------------------------------------------------------------------------------------
     @ApiOperation("获取积分排名")
     @GetMapping("/getPointRank")
-    public Response<PointRankResponse> getPointRank(
-            @RequestBody RankingRequest pointRankingRequest
-    ) {
-        /*
-        timeRange:
-        1.total:总积分
-        2.year:年度积分
-        3.month:月度积分
-        4.week:周积分
-        rankingRange:
-        1.system:系统范围内进行排名
-        2.group:小组范围内进行排名
-         */
-//        String userId = UserHolder.getUserId();
-//
-//        pointsRanking = rankingService.getWeeklyGroupPointsRanking(userId, timeRange, rankingRange);
-//        return pointsRanking;
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "timeRange", value = "请求：在积分排名界面之中显示积分排名的数值；" +
+                    "参数功能：设定排名的时间范围:" +
+                    "1)传入\"total\", 限定时间范围为全部（对应总积分）" +
+                    "2)传入\"year\", 限定时间范围为年（对应年度积分）" +
+                    "3)传入\"month\", 限定时间范围为月（对应月度积分）" +
+                    "4)传入\"week\", 限定时间范围为周（对应近七日在组内排名，传入这个参数时rankingRange请设置为\"group\"）",
+                    example = "total"),
+            @ApiImplicitParam(name = "rankingRange", value = "请求：在积分排名界面之中显示积分排名的数值；" +
+                    "参数功能：设定排名的组别范围:" +
+                    "1)传入\"system\", 表示在系统范围内进行排名（会在整个数据库之中进行检索排名）" +
+                    "2)传入\"group\",  表示在组内进行排名（会在具有相同地理位置的孩子中间进行排名）",
+                    example = "system")
 
-        return Response.ok(new PointRankResponse());
+    })
+    public Response<PointRankResponse> getPointRank(
+            @RequestParam String timeRange,
+            @RequestParam String rankingRange
+    ) {
+
+        String userId = UserHolder.getUserId();
+
+        int pointsRanking = pointService.getPointRank(userId,
+                timeRange, rankingRange);
+
+        PointRankResponse pointRankResponse = new PointRankResponse();
+        pointRankResponse.setPointRank(pointsRanking);
+        return Response.ok(pointRankResponse);
     }
 
+
+    // ---------------------------------------------------------------------------------------------
     @ApiOperation("获取完成任务个数(绘图)")
     @GetMapping("/drawTaskCount")
-    public Response<TaskStatusResponse> getTaskCount(@RequestBody RankingRequest rankingRequest) {
+    @ApiImplicitParam(name = "timeRange", value = "请求：在积分排名界面之中绘制每月/日完成任务个数的图像；" +
+            "参数功能：设定曲线每一个点所跨越的时间范围:" +
+            "3)传入\"month\", 限定时间范围为月（返回个人月度完成任务总数和系统平均完成任务总数）；" +
+            "4)传入\"day\", 限定时间范围为天（返回个人天度～～）；",
+            example = "month")
+    public Response<TaskStatusResponse> getTaskCountToDraw(@RequestParam String timeRange) {
+
+        String userId = UserHolder.getUserId();
+        List<TaskStatusVO> taskStatusVOList = pointService.
+                getDrawTaskData(userId, timeRange);
+
         TaskStatusResponse taskStatusResponse = new TaskStatusResponse();
+        taskStatusResponse.setTaskStatusVOList(taskStatusVOList);
         return Response.ok(taskStatusResponse);
     }
 
     @ApiOperation("获取积分个数(绘图)")
     @GetMapping("/drawPointCount")
-    public Response<PointStatusResponse> getPointCount(@RequestBody RankingRequest rankingRequest) {
+    @ApiImplicitParam(name = "timeRange", value = "请求：在积分排名界面之中绘制每月/日积分个数的图像；" +
+            "参数功能：设定曲线每一个点所跨越的时间范围:" +
+            "3)传入\"month\", 限定时间范围为月（返回个人月度积分总数和系统平均积分总数）；" +
+            "4)传入\"day\", 限定时间范围为天（返回个人天度～～）；",
+            example = "month")
+    public Response<PointStatusResponse> getPointCountToDraw(@RequestParam String timeRange) {
+
+        String userId = UserHolder.getUserId();
+        List<PointStatusVO> pointStatusVOList = pointService.
+                getDrawPointData(userId, timeRange);
+
         PointStatusResponse pointStatusResponse = new PointStatusResponse();
+        pointStatusResponse.setPointStatusVOList(pointStatusVOList);
         return Response.ok(pointStatusResponse);
     }
 

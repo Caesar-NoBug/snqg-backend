@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface MsProductStruct {
+
     //这里需要对象的对应属性名称相同
-    ProductVO mdoToVO(Product product);
+    ProductVO toProductVO(Product product);
 }

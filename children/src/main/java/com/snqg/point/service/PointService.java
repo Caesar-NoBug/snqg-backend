@@ -1,6 +1,9 @@
 package com.snqg.point.service;
 
+import com.snqg.point.domain.dto.point.PointUserDTO;
+import com.snqg.point.domain.vo.PointStatusVO;
 import com.snqg.point.domain.vo.PointVO;
+import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -29,4 +32,36 @@ public interface PointService extends IService<Point> {
      * @return
      */
     int getTotalPoints(String userId, String type, String timeRange);
+
+    /**
+     * 获取用于绘图的积分状态
+     * @param userId
+     * @param timeRange
+     * @return
+     */
+    List<PointStatusVO> getDrawPointData(String userId, String timeRange);
+
+    /**
+     * 获取积分排名(数值越大排名越靠前)
+     * @param userId
+     * @param timeRange
+     * @param rankingRange
+     * @return
+     */
+    int getPointRank(String userId, String timeRange, String rankingRange);
+
+    /**
+     * 获取任务完成个数
+     * @param userId
+     * @return
+     */
+    int getTaskCount(String userId);
+
+    /**
+     * 获取用于绘图的任务完成数量状态
+     * @param userId
+     * @param timeRange
+     * @return
+     */
+    List<TaskStatusVO> getDrawTaskData(String userId, String timeRange);
 }
