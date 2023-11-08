@@ -2,6 +2,7 @@ package com.snqg.task.mapper;
 
 import com.snqg.task.entity.Task;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author ldj123456789
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-11-04 22:44:45
 * @Entity com.snqg.task.entity.Task
 */
+
 
 public interface TaskMapper extends BaseMapper<Task> {
 

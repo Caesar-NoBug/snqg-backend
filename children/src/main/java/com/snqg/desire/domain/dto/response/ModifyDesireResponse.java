@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class ModifyDesireResponse {
 
-   // @ApiModelProperty(value = "message",example = "已成功修改愿望内容")
-   // private String message;
+    @ApiModelProperty(value = "message",example = "已修改/提示已完成的愿望无法修改")
+    private String message;
 }

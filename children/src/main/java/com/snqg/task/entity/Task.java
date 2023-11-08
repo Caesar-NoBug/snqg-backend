@@ -55,6 +55,7 @@ public class Task implements Serializable {
      */
     private String taskurl;
 
+    private int taskPoint;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

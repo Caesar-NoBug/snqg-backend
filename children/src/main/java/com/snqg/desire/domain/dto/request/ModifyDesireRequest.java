@@ -16,6 +16,7 @@ public class ModifyDesireRequest {
     @ApiModelProperty(value = "愿望详情",example = "我想用词典查不认识的字")
     private String desc;
 
-    @ApiModelProperty(value = "愿望是否完成",example = "true")
-    private boolean progress;
+    //已完成的愿望无法被修改
+    //@ApiModelProperty(value = "愿望是否完成",example = "true")
+    //private boolean progress;
 }

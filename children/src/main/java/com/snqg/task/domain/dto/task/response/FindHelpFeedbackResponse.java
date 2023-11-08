@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class FindHelpFeedbackResponse {
 
-    @ApiModelProperty(value = "boolean", example = "True")
+    @ApiModelProperty(value = "找人帮忙是否成功，true表示成功，false表示失败", example = "True")
     private boolean yesOrNo;
 }

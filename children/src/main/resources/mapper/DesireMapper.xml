@@ -10,10 +10,11 @@
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="desc" column="desc" jdbcType="VARCHAR"/>
             <result property="progress" column="progress" jdbcType="TINYINT"/>
+            <result property="thanks" column="thanks" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,child_id,title,
-        desc,progress
+        desc,progress,thanks
     </sql>
 </mapper>

@@ -1,7 +1,10 @@
 package com.snqg.desire.mapper;
 
+import com.snqg.desire.domain.vo.DesireVo;
 import com.snqg.desire.entity.Desire;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
 * @author 86135

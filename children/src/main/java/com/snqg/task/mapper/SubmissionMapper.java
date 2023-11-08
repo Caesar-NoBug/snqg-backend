@@ -2,6 +2,7 @@ package com.snqg.task.mapper;
 
 import com.snqg.task.entity.Submission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author ldj123456789
