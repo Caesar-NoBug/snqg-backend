@@ -1,5 +1,6 @@
 package com.snqg.task.service;
 
+import com.snqg.task.domain.vo.TaskFinishedVo;
 import com.snqg.task.domain.vo.TaskVo;
 import com.snqg.task.entity.Task;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -16,4 +17,8 @@ public interface TaskService extends IService<Task> {
 
     boolean isTrueChildSendTask( int childId, int id, String detail, String taskurl);
     List<TaskVo> getTaskMessage(int childId);
+
+    List<TaskFinishedVo> getAllFinishedTaskMessage(int childId);
+
+    List<TaskFinishedVo> getTodayFinishedTaskMessage(int childId);
 }

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import lombok.Data;
 
 /**
@@ -56,6 +58,8 @@ public class Task implements Serializable {
     private String taskurl;
 
     private int taskPoint;
+
+    private LocalDateTime taskFinishTime;
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
