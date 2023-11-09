@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class PointRankResponse {
 
-    @ApiModelProperty(value = "积分排名", example = "23")
+    @ApiModelProperty(value = "积分排名（整数）", example = "23")
     private int pointRank;
 }

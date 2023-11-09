@@ -29,8 +29,8 @@ public class Product implements Serializable {
     /**
      * 商品描述
      */
-    @TableField(value = "desc")
-    private String desc;
+    @TableField(value = "describ")
+    private String describ;
 
     /**
      * 商品价格
@@ -79,7 +79,7 @@ public class Product implements Serializable {
         Product other = (Product) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
+            && (this.getDescrib() == null ? other.getDescrib() == null : this.getDescrib().equals(other.getDescrib()))
             && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
             && (this.getCount() == null ? other.getCount() == null : this.getCount().equals(other.getCount()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
@@ -93,7 +93,7 @@ public class Product implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
+        result = prime * result + ((getDescrib() == null) ? 0 : getDescrib().hashCode());
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         result = prime * result + ((getCount() == null) ? 0 : getCount().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
@@ -110,7 +110,7 @@ public class Product implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", desc=").append(desc);
+        sb.append(", desc=").append(describ);
         sb.append(", price=").append(price);
         sb.append(", count=").append(count);
         sb.append(", type=").append(type);

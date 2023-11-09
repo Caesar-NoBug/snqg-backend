@@ -17,7 +17,7 @@ public class ProductVO {
     private String name;
 
     @ApiModelProperty(value = "商品描述", example = "这是一本很有趣的书")
-    private String desc;
+    private String describ;
 
     @ApiModelProperty(value = "商品价格", example = "898")
     private Integer price;

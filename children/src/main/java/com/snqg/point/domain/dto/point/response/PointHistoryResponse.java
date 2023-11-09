@@ -10,5 +10,5 @@ import java.util.List;
 public class PointHistoryResponse {
 
     @ApiModelProperty(value = "积分获取记录列表", example = "")
-    private List<PointVO> pointVOList;
+    private List<PointVO> pointRecords;
 }

@@ -8,7 +8,7 @@
     <resultMap id="BaseResultMap" type="com.snqg.point.entity.Product">
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="desc" column="desc" jdbcType="VARCHAR"/>
+            <result property="describ" column="describ" jdbcType="VARCHAR"/>
             <result property="price" column="price" jdbcType="INTEGER"/>
             <result property="count" column="count" jdbcType="INTEGER"/>
             <result property="type" column="type" jdbcType="TINYINT"/>
@@ -21,4 +21,11 @@
         price,count,type,
         is_discount,picture
     </sql>
+
+    
+    <select id="selectProductById" resultType="com.snqg.point.entity.Product">
+        SELECT id,name,describ,price,count,type,is_discount,picture
+        FROM product
+        WHERE id = #{id}
+    </select>
 </mapper>
