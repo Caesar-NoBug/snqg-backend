@@ -71,5 +71,6 @@ public class TaskController {
         getTaskResponse.setTaskFinishedVos(taskService.getTodayFinishedTaskMessage(getTaskRequset.getChildId()));
 
         return Response.ok(getTaskResponse);
+
     }
 }
