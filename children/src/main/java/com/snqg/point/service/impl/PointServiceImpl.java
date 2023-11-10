@@ -333,6 +333,8 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
     }
 
+    // ------------------------------------------------------------
+
     /**
      * 获取积分排名百分比
      * @param x
@@ -385,6 +387,84 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
 
         return rankPercentageVOList;
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取今日任务完成个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getTodayTaskCount(String userId) {
+
+        // 确定时间范围
+        LocalDateTime startTime = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0); // 当天的开始时间
+        LocalDateTime endTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59); // 当天的结束时间
+
+        // 查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).between("change_time", startTime, endTime);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        if (pointsList == null) {
+            return -1;
+        }
+
+        return pointsList.size();
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取累计任务完成个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getAccumulatedTaskCount(String userId) {
+        // 查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).gt("changed_point", 0);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        if (pointsList == null) {
+            return -1;
+        }
+
+        return pointsList.size();
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取今日积分个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getTodayPointCount(String userId) {
+
+        // 确定时间范围
+        LocalDateTime startTime = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0); // 当天的开始时间
+        LocalDateTime endTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59); // 当天的结束时间
+
+        // 查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).between("change_time", startTime, endTime);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        if (pointsList == null) {
+            return -1;
+        }
+
+        int totalPoints = 0;
+        for (Point points : pointsList) {
+            totalPoints += points.getChangedPoint();
+        }
+
+        return totalPoints;
     }
 
     // ------------------------------------------------------------
