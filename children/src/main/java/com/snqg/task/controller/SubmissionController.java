@@ -1,5 +1,6 @@
 package com.snqg.task.controller;
 
+import com.snqg.context.UserHolder;
 import com.snqg.domain.response.Response;
 import com.snqg.task.domain.dto.submission.request.SendTaskFinishRequest;
 import com.snqg.task.domain.dto.submission.response.GiveFeedbackResponse;
@@ -24,9 +25,10 @@ public class SubmissionController {
     public Response<GiveFeedbackResponse> setHelpRequest(
             @RequestBody SendTaskFinishRequest sendTaskFinishRequest
     ) {
+        String childId = UserHolder.getUserId();
         GiveFeedbackResponse giveFeedbackResponse = new GiveFeedbackResponse();
         giveFeedbackResponse.setVolunteer(submissionService.seekHelpTask(
-                sendTaskFinishRequest.getChildId(),sendTaskFinishRequest.getContent()));
+                Integer.valueOf(childId),sendTaskFinishRequest.getContent()));
         return Response.ok(giveFeedbackResponse);
     }
 
