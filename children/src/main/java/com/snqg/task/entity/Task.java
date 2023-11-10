@@ -60,6 +60,9 @@ public class Task implements Serializable {
     private int taskPoint;
 
     private LocalDateTime taskFinishTime;
+
+    private int isGetPoint;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

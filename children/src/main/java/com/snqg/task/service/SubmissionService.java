@@ -12,5 +12,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SubmissionService extends IService<Submission> {
 //    1.任务求助模块：输入初步定为小孩ID、任务求助内容；；输出初步定为志愿者ID
 
-    boolean seekHelpTask(int childId, String content);
+    boolean seekHelpTask(String childId, String content);
 }
