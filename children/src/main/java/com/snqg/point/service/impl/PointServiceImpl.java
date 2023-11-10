@@ -17,6 +17,7 @@ import com.snqg.point.mapper.PointMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +45,32 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 
     @Autowired
     private UserMapper userMapper;
+
+
+    private List<String> monthList = new ArrayList<>();
+
+    private List<String> dayList = new ArrayList<>();
+
+    // 构造函数，在PointServiceImpl被初始化时将mouthList初始化为一个以现在时间为准，前12个月份的列表
+    // 将dayList初始化为一个以现在时间为准，前7天的列表
+    @PostConstruct
+    public void init() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (int i = 0; i < 12; i++) {
+            // 格式为2021-09
+            String xMonthAgo = LocalDateTime.now().minusMonths(i).format(formatter).substring(0, 7);
+            monthList.add(xMonthAgo);
+        }
+        for (int i = 0; i < 7; i++) {
+            // 格式为09-01
+            String xDayAgo = LocalDateTime.now().minusDays(i).format(formatter).substring(5, 10);
+            dayList.add(xDayAgo);
+        }
+
+//        System.out.println("monthList: " + monthList);
+//        System.out.println("dayList: " + dayList);
+    }
 
     /**
      * 获取积分获取记录
@@ -273,8 +300,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
 
         if (pointUserDTOList != null) {
-            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
-                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+             Map<String, List<PointUserDTO>> groupedByTimeRange = fillMap(timeRange, pointUserDTOList);
 
             List<TaskStatusVO> taskStatusVOList = new ArrayList<>();
 
@@ -345,7 +371,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
                         .collect(Collectors.toList());
 
                 double rank = sortedKeys.indexOf(userId) + 1;
-                double rankPercentage = rank / childCount;
+                int rankPercentage = (int)(rank / childCount * 100);
 
                 RankPercentageVO rankPercentageVO = new RankPercentageVO();
                 rankPercentageVO.setRecordTime(xPlus1MonthAgo.substring(0, 7));
@@ -373,8 +399,8 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     public List<PointStatusVO> getDrawPointData(String userId, String timeRange) {
 
 //        User user = userMapper.selectById(userId);
-        System.out.println("userId: " + userId);
-        System.out.println("timeRange: " + timeRange);
+//        System.out.println("userId: " + userId);
+//        System.out.println("timeRange: " + timeRange);
 
         List<PointUserDTO> pointUserDTOList;
         if (timeRange.equals("month")) {
@@ -385,11 +411,11 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             return null;
         }
 
-        System.out.println("pointUserDTOList: " + pointUserDTOList);
+//        System.out.println("pointUserDTOList: " + pointUserDTOList);
 
         if (pointUserDTOList != null) {
-            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
-                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+
+            Map<String, List<PointUserDTO>> groupedByTimeRange = fillMap(timeRange, pointUserDTOList);
 
             System.out.println("groupedByTimeRange: " + groupedByTimeRange);
 
@@ -426,6 +452,34 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         } else {
             return null;
         }
+    }
+
+
+    /**
+     * 填充Map，将没有的时间范围的key补充上
+     * @param timeRange
+     * @param pointUserDTOList
+     * @return
+     */
+    private Map<String, List<PointUserDTO>> fillMap(String timeRange, List<PointUserDTO> pointUserDTOList) {
+        Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
+                .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+
+        if (timeRange.equals("month")) {
+            for (String month : monthList) {
+                if (!groupedByTimeRange.containsKey(month)) {
+                    groupedByTimeRange.put(month, new ArrayList<>());
+                }
+            }
+        } else {
+            for (String day : dayList) {
+                if (!groupedByTimeRange.containsKey(day)) {
+                    groupedByTimeRange.put(day, new ArrayList<>());
+                }
+            }
+        }
+
+        return groupedByTimeRange;
     }
 
     /**
