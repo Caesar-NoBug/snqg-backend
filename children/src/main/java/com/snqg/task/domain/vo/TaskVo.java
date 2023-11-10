@@ -23,4 +23,7 @@ public class TaskVo {
 
     @ApiModelProperty(value = "任务图片url",example = "abcdefg")
     private String taskUrl;
+
+    @ApiModelProperty(value = "该任务价值的积分", example = "10")
+    private int taskPoint;
 }

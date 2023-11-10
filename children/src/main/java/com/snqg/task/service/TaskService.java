@@ -18,7 +18,7 @@ public interface TaskService extends IService<Task> {
     boolean isTrueChildSendTask( int childId, int id, String detail, String taskurl);
     List<TaskVo> getTaskMessage(int childId);
 
-    List<TaskFinishedVo> getAllFinishedTaskMessage(int childId);
+    List<TaskFinishedVo> getAllFinishedTaskMessage(String childId);
 
     List<TaskFinishedVo> getTodayFinishedTaskMessage(int childId);
 }
