@@ -1,9 +1,11 @@
 package com.snqg.task.controller;
 
+import com.snqg.context.UserHolder;
 import com.snqg.domain.response.Response;
 import com.snqg.point.service.PointService;
 import com.snqg.task.domain.dto.task.request.FindHelpRequest;
 import com.snqg.task.domain.dto.task.request.GetTaskRequset;
+import com.snqg.task.domain.dto.task.response.GetAllFinishedTaskResponse;
 import com.snqg.task.domain.dto.task.response.GetTaskResponse;
 import com.snqg.task.domain.dto.task.response.FindHelpFeedbackResponse;
 import com.snqg.task.service.TaskService;
@@ -32,20 +34,45 @@ public class TaskController {
     public Response<FindHelpFeedbackResponse> sendTaskFinishRequest(
             @RequestBody FindHelpRequest findHelpRequest
     ) {
+        String childId = UserHolder.getUserId();
         FindHelpFeedbackResponse findHelpFeedbackResponse = new FindHelpFeedbackResponse();
-        findHelpFeedbackResponse.setYesOrNo(taskService.isTrueChildSendTask(findHelpRequest.getChildId(),findHelpRequest.getId(),
+        findHelpFeedbackResponse.setYesOrNo(taskService.isTrueChildSendTask(Integer.valueOf(childId),findHelpRequest.getId(),
                 findHelpRequest.getDetail(),findHelpRequest.getTaskUrl()));
         return Response.ok(findHelpFeedbackResponse);
     }
 
     @ApiOperation("获取当前小孩下，他的任务信息")
     @GetMapping("/getTask")
-    public Response<GetTaskResponse> getTask(
-            @RequestBody GetTaskRequset getTaskRequset
-            ){
+    public Response<GetTaskResponse> getTask(){
+
+        String childId = UserHolder.getUserId();
         GetTaskResponse getTaskResponse = new GetTaskResponse();
-        getTaskResponse.setTaskVoList(taskService.getTaskMessage(getTaskRequset.getChildId()));
+        getTaskResponse.setTaskVoList(taskService.getTaskMessage(Integer.valueOf(childId)));
 
         return Response.ok(getTaskResponse);
+    }
+    @ApiOperation("获取当前小孩下，他完成的所有任务信息")
+    @GetMapping("/getAllFinishedTask")
+    public Response<GetAllFinishedTaskResponse> getAllFinishedTask(
+    ){
+        String childId = UserHolder.getUserId();
+        GetAllFinishedTaskResponse getTaskResponse = new GetAllFinishedTaskResponse();
+        getTaskResponse.setTaskFinishedVos(taskService.getAllFinishedTaskMessage(Integer.valueOf(childId)));
+
+        return Response.ok(getTaskResponse);
+
+    }
+
+
+    @ApiOperation("获取今天，当前小孩下，他完成的任务信息")
+    @GetMapping("/getTodayFinishedTask")
+    public Response<GetAllFinishedTaskResponse> getTodayFinishedTask(
+    ){
+        String childId = UserHolder.getUserId();
+        GetAllFinishedTaskResponse getTaskResponse = new GetAllFinishedTaskResponse();
+        getTaskResponse.setTaskFinishedVos(taskService.getTodayFinishedTaskMessage(Integer.valueOf(childId)));
+
+        return Response.ok(getTaskResponse);
+
     }
 }

@@ -7,6 +7,7 @@ import com.snqg.children.mapper.UserMapper;
 import com.snqg.point.entity.Point;
 import com.snqg.point.mapper.PointMapper;
 import com.snqg.point.service.PointService;
+import com.snqg.task.domain.vo.TaskFinishedVo;
 import com.snqg.task.domain.vo.TaskVo;
 import com.snqg.task.entity.Submission;
 import com.snqg.task.entity.Task;
@@ -15,6 +16,7 @@ import com.snqg.task.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
     public TaskServiceImpl( PointService pointService ){
         this.pointService = pointService;
     }
+
+
+
+
 
     @Override
     public boolean isTrueChildSendTask(int childId, int id, String detail, String taskUrl) {
@@ -81,7 +87,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
 //        插入一条积分修改信息
         Point point = new Point();
-        point.setChangeTime(LocalDateTime.MAX);
+        point.setChangeTime(LocalDateTime.now());
         point.setId(childId);
         point.setTaskDesc(detail);
         point.setChangedPoint(task.getTaskPoint());
@@ -89,6 +95,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
         return true;
     }
+
 
     @Override
     public List<TaskVo> getTaskMessage(int childId) {
@@ -122,6 +129,78 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
             }
         }
         return taskVoList;
+    }
+
+//    得到所有已完成的任务
+    @Override
+    public List<TaskFinishedVo> getAllFinishedTaskMessage(int childId) {
+
+//        通过小孩id查询属于他的任务
+        List<Task> tasks = new ArrayList<>();
+
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+
+        queryWrapper.eq("child_id",childId);
+        queryWrapper.eq("progression",100);
+        tasks = taskMapper.selectList(queryWrapper);
+
+        if(tasks.isEmpty()) {
+            return null;
+        }
+
+        List<TaskFinishedVo> taskFinishedVoList = new ArrayList<>();
+        for( Task task : tasks ){
+                TaskFinishedVo taskVo = new TaskFinishedVo();
+                taskVo.setId(task.getId());
+                taskVo.setType(task.getType());
+                taskVo.setTaskUrl(task.getTaskurl());
+                taskVo.setDetail(task.getDetail());
+                taskVo.setTitle(task.getTitle());
+                taskVo.setTaskFinishTime(task.getTaskFinishTime());
+
+                taskFinishedVoList.add(taskVo);
+
+        }
+        return taskFinishedVoList;
+    }
+
+//    得到所有今天已完成的任务
+    @Override
+    public List<TaskFinishedVo> getTodayFinishedTaskMessage(int childId) {
+
+//        通过小孩id查询属于他的任务
+        List<Task> tasks = new ArrayList<>();
+
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+
+        queryWrapper.eq("child_id",childId);
+        queryWrapper.eq("progression",100);
+        tasks = taskMapper.selectList(queryWrapper);
+
+        if(tasks.isEmpty()) {
+            return null;
+        }
+
+        List<TaskFinishedVo> taskFinishedVoList = new ArrayList<>();
+        for( Task task : tasks ){
+
+
+            LocalDateTime startTime = LocalDate.now().atTime(0, 0, 0);
+            LocalDateTime endTime = LocalDate.now().atTime(23, 59, 59);
+//            仅记录今日任务
+            if(task.getTaskFinishTime().isAfter(startTime) && task.getTaskFinishTime().isBefore(endTime)) {
+                TaskFinishedVo taskVo = new TaskFinishedVo();
+                taskVo.setId(task.getId());
+                taskVo.setType(task.getType());
+                taskVo.setTaskUrl(task.getTaskurl());
+                taskVo.setDetail(task.getDetail());
+                taskVo.setTitle(task.getTitle());
+                taskVo.setTaskFinishTime(task.getTaskFinishTime());
+
+                taskFinishedVoList.add(taskVo);
+            }
+        }
+        return taskFinishedVoList;
     }
 
 
