@@ -66,5 +66,17 @@ public interface PointService extends IService<Point> {
      */
     List<TaskStatusVO> getDrawTaskData(String userId, String timeRange);
 
+    /**
+     * 获取积分排名百分比
+     * @param userId
+     * @param x
+     * @return
+     */
     List<RankPercentageVO> getRankPercentage(String userId, int x);
+
+    int getTodayTaskCount(String userId);
+
+    int getAccumulatedTaskCount(String userId);
+
+    int getTodayPointCount(String userId);
 }

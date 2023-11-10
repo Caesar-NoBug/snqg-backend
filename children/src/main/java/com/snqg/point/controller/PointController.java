@@ -12,10 +12,7 @@ import com.snqg.point.domain.vo.RankPercentageVO;
 import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.snqg.point.service.PointService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -192,4 +189,52 @@ public class PointController {
         return Response.ok(pointRankPercentageResponse);
     }
 
+
+    @ApiOperation("获取今日完成任务个数（GET方法进行请求）")
+    @GetMapping("/getTodayTaskCount")
+    public Response<TodayTaskCountResponse> getTodayTaskCount() {
+
+        String userId = UserHolder.getUserId();
+        int todayTaskCount = pointService.getTodayTaskCount(userId);
+
+        if (todayTaskCount == -1) {
+            return Response.error("传入参数错误，获取今日完成任务个数失败");
+        }
+
+        TodayTaskCountResponse todayTaskCountResponse = new TodayTaskCountResponse();
+        todayTaskCountResponse.setTodayTaskCount(todayTaskCount);
+        return Response.ok(todayTaskCountResponse);
+    }
+
+    @ApiOperation("获取累计完成任务个数（GET方法进行请求）")
+    @GetMapping("/getTotalTaskCount")
+    public Response<TotalTaskCountResponse> getTotalTaskCount() {
+
+        String userId = UserHolder.getUserId();
+        int totalTaskCount = pointService.getTaskCount(userId);
+
+        if (totalTaskCount == -1) {
+            return Response.error("传入参数错误，获取累计完成任务个数失败");
+        }
+
+        TotalTaskCountResponse totalTaskCountResponse = new TotalTaskCountResponse();
+        totalTaskCountResponse.setTotalTaskCount(totalTaskCount);
+        return Response.ok(totalTaskCountResponse);
+    }
+
+    @ApiOperation("获取今日获取积分个数（GET方法进行请求）")
+    @GetMapping("/getTodayPointCount")
+    public Response<TodayPointCountResponse> getTodayPointCount() {
+
+        String userId = UserHolder.getUserId();
+        int todayPointCount = pointService.getTodayPointCount(userId);
+
+        if (todayPointCount == -1) {
+            return Response.error("传入参数错误，获取今日获取积分个数失败");
+        }
+
+        TodayPointCountResponse todayPointCountResponse = new TodayPointCountResponse();
+        todayPointCountResponse.setTodayPointCount(todayPointCount);
+        return Response.ok(todayPointCountResponse);
+    }
 }
