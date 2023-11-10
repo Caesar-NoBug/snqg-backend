@@ -135,7 +135,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
 //    得到所有已完成的任务
     @Override
-    public List<TaskFinishedVo> getAllFinishedTaskMessage(int childId) {
+    public List<TaskFinishedVo> getAllFinishedTaskMessage(String childId) {
 
 //        通过小孩id查询属于他的任务
         List<Task> tasks = new ArrayList<>();

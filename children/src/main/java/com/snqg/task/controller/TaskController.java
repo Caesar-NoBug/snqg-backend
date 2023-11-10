@@ -57,7 +57,7 @@ public class TaskController {
     ){
         String childId = UserHolder.getUserId();
         GetAllFinishedTaskResponse getTaskResponse = new GetAllFinishedTaskResponse();
-        getTaskResponse.setTaskFinishedVos(taskService.getAllFinishedTaskMessage(Integer.valueOf(childId)));
+        getTaskResponse.setTaskFinishedVos(taskService.getAllFinishedTaskMessage(childId));
 
         return Response.ok(getTaskResponse);
 
