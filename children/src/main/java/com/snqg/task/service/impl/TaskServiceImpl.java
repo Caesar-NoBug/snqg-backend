@@ -124,6 +124,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                 taskVo.setDetail(task.getDetail());
                 taskVo.setTitle(task.getTitle());
                 taskVo.setProgression(task.getProgression());
+                taskVo.setTaskPoint(task.getTaskPoint());
+
 
                 taskVoList.add(taskVo);
             }
