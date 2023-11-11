@@ -12,10 +12,7 @@ import com.snqg.point.domain.vo.RankPercentageVO;
 import com.snqg.point.domain.vo.TaskStatusVO;
 import com.snqg.point.entity.Point;
 import com.snqg.point.service.PointService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -191,5 +188,6 @@ public class PointController {
         pointRankPercentageResponse.setRankPercentageList(rankPercentageVOList);
         return Response.ok(pointRankPercentageResponse);
     }
+
 
 }

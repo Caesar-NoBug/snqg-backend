@@ -17,6 +17,7 @@ import com.snqg.point.mapper.PointMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +45,32 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
 
     @Autowired
     private UserMapper userMapper;
+
+
+    private List<String> monthList = new ArrayList<>();
+
+    private List<String> dayList = new ArrayList<>();
+
+    // 构造函数，在PointServiceImpl被初始化时将mouthList初始化为一个以现在时间为准，前12个月份的列表
+    // 将dayList初始化为一个以现在时间为准，前7天的列表
+    @PostConstruct
+    public void init() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (int i = 0; i < 12; i++) {
+            // 格式为2021-09
+            String xMonthAgo = LocalDateTime.now().minusMonths(i).format(formatter).substring(0, 7);
+            monthList.add(xMonthAgo);
+        }
+        for (int i = 0; i < 7; i++) {
+            // 格式为09-01
+            String xDayAgo = LocalDateTime.now().minusDays(i).format(formatter).substring(5, 10);
+            dayList.add(xDayAgo);
+        }
+
+//        System.out.println("monthList: " + monthList);
+//        System.out.println("dayList: " + dayList);
+    }
 
     /**
      * 获取积分获取记录
@@ -273,8 +300,7 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
 
         if (pointUserDTOList != null) {
-            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
-                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+             Map<String, List<PointUserDTO>> groupedByTimeRange = fillMap(timeRange, pointUserDTOList);
 
             List<TaskStatusVO> taskStatusVOList = new ArrayList<>();
 
@@ -362,6 +388,140 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     }
 
     // ------------------------------------------------------------
+
+    /**
+     * 获取积分排名百分比
+     * @param x
+     * @return
+     */
+    @Override
+    public List<RankPercentageVO> getRankPercentage(String userId, int x) {
+
+        // 计算有几个孩子，输出是一个整数，但是为了之后计算，将其转化为浮点数
+        double childCount = userMapper.countChildren();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        List<RankPercentageVO> rankPercentageVOList = new ArrayList<>();
+        for (int i = 0; i < x; i++) {
+            Map<String, String> params = new HashMap<>();
+            String xMonthAgo = LocalDateTime.now().minusMonths(i).format(formatter);
+            String xPlus1MonthAgo = LocalDateTime.now().minusMonths(i + 1).format(formatter);
+//            System.out.println("xMonthAgo: " + xMonthAgo);
+            params.put("timeRangeSQL", String.format("p.change_time >= \"%s\" AND p.change_time <= \"%s\"",
+                    xPlus1MonthAgo, xMonthAgo));
+            params.put("rankingRangeSQL", "1=1");
+
+            List<PointUserDTO> pointUserDTOList = pointMapper.selectPointUserRecords(
+                    params.get("timeRangeSQL"),
+                    params.get("rankingRangeSQL"));
+
+            if (pointUserDTOList != null) {
+                Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
+                        .collect(Collectors.groupingBy(PointUserDTO::getUserId,
+                                Collectors.summingInt(PointUserDTO::getChangedPoint)));
+
+                List<String> sortedKeys = totalPointsByUserId.entrySet().stream()
+                        .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toList());
+
+                double rank = sortedKeys.indexOf(userId) + 1;
+                int rankPercentage = (int)(rank / childCount * 100);
+
+                RankPercentageVO rankPercentageVO = new RankPercentageVO();
+                rankPercentageVO.setRecordTime(xPlus1MonthAgo.substring(0, 7));
+                rankPercentageVO.setRankPercentage(rankPercentage);
+
+                rankPercentageVOList.add(rankPercentageVO);
+
+            } else {
+                return null;
+            }
+        }
+
+        return rankPercentageVOList;
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取今日任务完成个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getTodayTaskCount(String userId) {
+
+        // 确定时间范围
+        LocalDateTime startTime = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0); // 当天的开始时间
+        LocalDateTime endTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59); // 当天的结束时间
+
+        // 查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).between("change_time", startTime, endTime);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        if (pointsList == null) {
+            return -1;
+        }
+
+        return pointsList.size();
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取累计任务完成个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getAccumulatedTaskCount(String userId) {
+        // 查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).gt("changed_point", 0);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        if (pointsList == null) {
+            return -1;
+        }
+
+        return pointsList.size();
+    }
+
+    // ------------------------------------------------------------
+
+    /**
+     * 获取今日积分个数
+     * @param userId
+     * @return
+     */
+    @Override
+    public int getTodayPointCount(String userId) {
+
+        // 确定时间范围
+        LocalDateTime startTime = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0); // 当天的开始时间
+        LocalDateTime endTime = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59); // 当天的结束时间
+
+        // 查询
+        QueryWrapper<Point> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).between("change_time", startTime, endTime);
+        List<Point> pointsList = pointMapper.selectList(queryWrapper);
+
+        if (pointsList == null) {
+            return -1;
+        }
+
+        int totalPoints = 0;
+        for (Point points : pointsList) {
+            totalPoints += points.getChangedPoint();
+        }
+
+        return totalPoints;
+    }
+
+    // ------------------------------------------------------------
     /**
      * 获取每一天或每一月的积分变化情况（用于绘图）
      * 包含userId对应的儿童的积分以及整个系统积分的平均值
@@ -373,8 +533,8 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
     public List<PointStatusVO> getDrawPointData(String userId, String timeRange) {
 
 //        User user = userMapper.selectById(userId);
-        System.out.println("userId: " + userId);
-        System.out.println("timeRange: " + timeRange);
+//        System.out.println("userId: " + userId);
+//        System.out.println("timeRange: " + timeRange);
 
         List<PointUserDTO> pointUserDTOList;
         if (timeRange.equals("month")) {
@@ -385,11 +545,11 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
             return null;
         }
 
-        System.out.println("pointUserDTOList: " + pointUserDTOList);
+//        System.out.println("pointUserDTOList: " + pointUserDTOList);
 
         if (pointUserDTOList != null) {
-            Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
-                    .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+
+            Map<String, List<PointUserDTO>> groupedByTimeRange = fillMap(timeRange, pointUserDTOList);
 
             System.out.println("groupedByTimeRange: " + groupedByTimeRange);
 
@@ -426,6 +586,34 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         } else {
             return null;
         }
+    }
+
+
+    /**
+     * 填充Map，将没有的时间范围的key补充上
+     * @param timeRange
+     * @param pointUserDTOList
+     * @return
+     */
+    private Map<String, List<PointUserDTO>> fillMap(String timeRange, List<PointUserDTO> pointUserDTOList) {
+        Map<String, List<PointUserDTO>> groupedByTimeRange = pointUserDTOList.stream()
+                .collect(Collectors.groupingBy(dto -> determineTimeRange(dto, timeRange)));
+
+        if (timeRange.equals("month")) {
+            for (String month : monthList) {
+                if (!groupedByTimeRange.containsKey(month)) {
+                    groupedByTimeRange.put(month, new ArrayList<>());
+                }
+            }
+        } else {
+            for (String day : dayList) {
+                if (!groupedByTimeRange.containsKey(day)) {
+                    groupedByTimeRange.put(day, new ArrayList<>());
+                }
+            }
+        }
+
+        return groupedByTimeRange;
     }
 
     /**
