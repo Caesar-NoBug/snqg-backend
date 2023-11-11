@@ -237,4 +237,6 @@ public class PointController {
         todayPointCountResponse.setTodayPointCount(todayPointCount);
         return Response.ok(todayPointCountResponse);
     }
+
+
 }
