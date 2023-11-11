@@ -3,9 +3,10 @@ package com.snqg.task.domain.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-@Data
-public class TaskVo {
+import java.time.LocalDateTime;
 
+@Data
+public class TaskFinishedVo {
     @ApiModelProperty(value = "任务id",example = "1234")
     private int id;
 
@@ -18,12 +19,12 @@ public class TaskVo {
     @ApiModelProperty(value = "任务具体内容",example = "1+2=")
     private String detail;
 
-    @ApiModelProperty(value = "进度",example = "20")
-    private int progression;
-
     @ApiModelProperty(value = "任务图片url",example = "abcdefg")
     private String taskUrl;
 
-    @ApiModelProperty(value = "该任务价值的积分", example = "10")
-    private int taskPoint;
+    @ApiModelProperty(value = "任务完成时间", example = "2019-01-21T05:47:08.644")
+    private LocalDateTime taskFinishTime;
+
+    @ApiModelProperty(value = "该任务是否领取,false表示未领取", example = "false")
+    private boolean isGetPoint;
 }

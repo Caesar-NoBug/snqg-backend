@@ -190,6 +190,7 @@ public class PointController {
     }
 
 
+
     @ApiOperation("获取今日完成任务个数（GET方法进行请求）")
     @GetMapping("/getTodayTaskCount")
     public Response<TodayTaskCountResponse> getTodayTaskCount() {
@@ -237,6 +238,4 @@ public class PointController {
         todayPointCountResponse.setTodayPointCount(todayPointCount);
         return Response.ok(todayPointCountResponse);
     }
-
-
 }

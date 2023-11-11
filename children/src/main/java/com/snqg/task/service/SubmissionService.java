@@ -2,6 +2,7 @@ package com.snqg.task.service;
 
 import com.snqg.task.entity.Submission;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author ldj123456789
@@ -11,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface SubmissionService extends IService<Submission> {
 //    1.任务求助模块：输入初步定为小孩ID、任务求助内容；；输出初步定为志愿者ID
 
-    int seekHelpTask(int childId, String content);
+    boolean seekHelpTask(String childId, String content);
 }

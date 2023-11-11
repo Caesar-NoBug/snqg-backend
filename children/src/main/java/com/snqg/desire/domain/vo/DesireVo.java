@@ -16,7 +16,7 @@ public class DesireVo {
     private String desc;
 
     @ApiModelProperty(value = "愿望是否完成",example = "true")
-    private boolean progress;
+    private int progress;
 
     /*
     @ApiModelProperty(value = "感谢的内容",example = "你是好人，谢谢你")

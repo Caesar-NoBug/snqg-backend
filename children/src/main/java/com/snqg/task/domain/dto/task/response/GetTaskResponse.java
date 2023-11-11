@@ -9,6 +9,6 @@ import java.util.List;
 @Data
 public class GetTaskResponse {
 
-    @ApiModelProperty(value = "任务信息列表",example = "")
+    @ApiModelProperty(value = "任务信息列表,以数组形式返回任务信息",example = "")
     private List<TaskVo> taskVoList;
 }

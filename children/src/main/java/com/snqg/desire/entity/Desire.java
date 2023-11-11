@@ -38,7 +38,7 @@ public class Desire implements Serializable {
     /**
      * 愿望进度（布尔型。false为未完成；true为已完成）
      */
-    private Boolean progress;
+    private int progress;
 
     /**
      * 感谢的具体内容

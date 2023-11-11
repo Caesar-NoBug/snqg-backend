@@ -7,6 +7,6 @@ import lombok.Data;
 @Data
 public class AddThanksResponse {
 
-    //@ApiModelProperty(value = "message",example = "成功添加感谢")
-    //private String message;
+   // @ApiModelProperty(value = "message",example = "成功添加感谢")
+   // private String addThanksResult;
 }

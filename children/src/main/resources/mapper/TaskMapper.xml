@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snqg.task.mapper.TaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.snqg.task.entity.Task">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="childId" column="child_id" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="type" column="type" jdbcType="VARCHAR"/>
+            <result property="detail" column="detail" jdbcType="VARCHAR"/>
+            <result property="createdBy" column="created_by" jdbcType="VARCHAR"/>
+            <result property="progression" column="progression" jdbcType="TINYINT"/>
+            <result property="taskurl" column="taskURL" jdbcType="VARCHAR"/>
+            <result property="taskPoint" column="task_point" jdbcType="INTEGER"/>
+            <result property="taskFinishTime" column="task_finish_time" jdbcType="DATE"/>
+            <result property="isGetPoint" column="is_get_point" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,child_id,title,
+        type,detail,created_by,
+        progression,taskURL,task_point,task_finish_time, is_get_point
+    </sql>
+</mapper>
