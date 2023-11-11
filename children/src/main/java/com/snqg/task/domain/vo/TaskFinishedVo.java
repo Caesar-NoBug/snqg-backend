@@ -24,4 +24,7 @@ public class TaskFinishedVo {
 
     @ApiModelProperty(value = "任务完成时间", example = "2019-01-21T05:47:08.644")
     private LocalDateTime taskFinishTime;
+
+    @ApiModelProperty(value = "该任务是否领取,false表示未领取", example = "false")
+    private boolean isGetPoint;
 }

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 //愿望模块
+@CrossOrigin
 @RestController
 @Api(tags = "愿望")
 @RequestMapping("/desire")
@@ -21,6 +22,7 @@ public class DesireController {
 
     @Autowired
     private DesireService desireService;
+
 
 
     @ApiOperation("添加一个愿望")
@@ -39,6 +41,7 @@ public class DesireController {
         return Response.ok(addDesireResponse);
     }
 
+
     @ApiOperation("添加一个感谢")
     @PostMapping("/addThanks")
     public Response<AddThanksResponse> addThanks(@RequestBody AddThanksRequest request){
@@ -55,6 +58,7 @@ public class DesireController {
         return Response.ok(addThanksResponse);
     }
 
+
     @ApiOperation("获取某个儿童所有愿望的详细情况")
     @GetMapping("/getDesire")
     public Response<GetDesireResponse> getDesire(){
@@ -66,6 +70,7 @@ public class DesireController {
         return Response.ok(getDesireResponse);
     }
 
+
     @ApiOperation("获取针对某个愿望的感谢")
     @GetMapping("/getThanks/{id}")
     public Response<GetThanksResponse> getThanks(@ApiParam(name = "id", example = "123")
@@ -75,6 +80,7 @@ public class DesireController {
         getThanksResponse.setThanks(desireService.getThanks(id));
         return Response.ok(getThanksResponse);
     }
+
 
     @ApiOperation("修改某个愿望的内容")
     @PutMapping("/modifyDesire")
@@ -92,6 +98,7 @@ public class DesireController {
         return Response.ok( modifyDesireResponse);
     }
 
+
     @ApiOperation("修改某个感谢的内容")
     @PutMapping("/modifyThanks")
     public Response<ModifyThanksResponse> addThanks(@RequestBody ModifyThanksRequest request){
@@ -108,6 +115,7 @@ public class DesireController {
         return Response.ok(modifyThanksResponse);
     }
 
+
     @ApiOperation("删除某个愿望")
     @DeleteMapping("/removeDesire")
     public Response<RemoveDesireResponse> removeDesire(@RequestBody RemoveDesireRequest request){
@@ -118,6 +126,7 @@ public class DesireController {
         RemoveDesireResponse removeDesireResponse = new RemoveDesireResponse();
         return Response.ok(removeDesireResponse);
     }
+
 
     @ApiOperation("删除感谢")
     @DeleteMapping("/removeThanks")

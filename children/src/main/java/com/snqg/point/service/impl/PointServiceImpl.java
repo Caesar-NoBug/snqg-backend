@@ -333,6 +333,60 @@ public class PointServiceImpl extends ServiceImpl<PointMapper, Point>
         }
     }
 
+    /**
+     * 获取积分排名百分比
+     * @param x
+     * @return
+     */
+    @Override
+    public List<RankPercentageVO> getRankPercentage(String userId, int x) {
+
+        // 计算有几个孩子，输出是一个整数，但是为了之后计算，将其转化为浮点数
+        double childCount = userMapper.countChildren();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        List<RankPercentageVO> rankPercentageVOList = new ArrayList<>();
+        for (int i = 0; i < x; i++) {
+            Map<String, String> params = new HashMap<>();
+            String xMonthAgo = LocalDateTime.now().minusMonths(i).format(formatter);
+            String xPlus1MonthAgo = LocalDateTime.now().minusMonths(i + 1).format(formatter);
+//            System.out.println("xMonthAgo: " + xMonthAgo);
+            params.put("timeRangeSQL", String.format("p.change_time >= \"%s\" AND p.change_time <= \"%s\"",
+                    xPlus1MonthAgo, xMonthAgo));
+            params.put("rankingRangeSQL", "1=1");
+
+            List<PointUserDTO> pointUserDTOList = pointMapper.selectPointUserRecords(
+                    params.get("timeRangeSQL"),
+                    params.get("rankingRangeSQL"));
+
+            if (pointUserDTOList != null) {
+                Map<String, Integer> totalPointsByUserId = pointUserDTOList.stream()
+                        .collect(Collectors.groupingBy(PointUserDTO::getUserId,
+                                Collectors.summingInt(PointUserDTO::getChangedPoint)));
+
+                List<String> sortedKeys = totalPointsByUserId.entrySet().stream()
+                        .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toList());
+
+                double rank = sortedKeys.indexOf(userId) + 1;
+                double rankPercentage = rank / childCount;
+
+                RankPercentageVO rankPercentageVO = new RankPercentageVO();
+                rankPercentageVO.setRecordTime(xPlus1MonthAgo.substring(0, 7));
+                rankPercentageVO.setRankPercentage(rankPercentage);
+
+                rankPercentageVOList.add(rankPercentageVO);
+
+            } else {
+                return null;
+            }
+        }
+
+        return rankPercentageVOList;
+    }
+
     // ------------------------------------------------------------
 
     /**

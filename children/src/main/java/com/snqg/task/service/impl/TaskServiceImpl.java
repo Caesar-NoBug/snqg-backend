@@ -49,9 +49,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
 
 
-
+//    是否成功发布任务
     @Override
-    public boolean isTrueChildSendTask(int childId, int id, String detail, String taskUrl) {
+    public boolean isTrueChildSendTask(String childId, int id, String detail, String taskUrl) {
 //        往数据库中存储任务信息
 //        如果Progression == 100 ，则表示任务完成。
         Task task = new Task();
@@ -71,7 +71,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
         tasks = taskMapper.selectList(queryWrapper);
 
         for(Task task1: tasks){
-            if(childId == Integer.valueOf(task1.getChildId())){
+            if(childId .equals(task1.getChildId())){
                 task = task1;
                 break;
             }
@@ -88,7 +88,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 //        插入一条积分修改信息
         Point point = new Point();
         point.setChangeTime(LocalDateTime.now());
-        point.setId(childId);
+        point.setUserId(childId);
         point.setTaskDesc(detail);
         point.setChangedPoint(task.getTaskPoint());
         pointMapper.insert(point);
@@ -98,7 +98,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
 
     @Override
-    public List<TaskVo> getTaskMessage(int childId) {
+    public List<TaskVo> getTaskMessage(String childId) {
 
 //        通过小孩id查询属于他的任务
         List<Task> tasks = new ArrayList<>();
@@ -168,7 +168,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
 
 //    得到所有今天已完成的任务
     @Override
-    public List<TaskFinishedVo> getTodayFinishedTaskMessage(int childId) {
+    public List<TaskFinishedVo> getTodayFinishedTaskMessage(String childId) {
 
 //        通过小孩id查询属于他的任务
         List<Task> tasks = new ArrayList<>();
@@ -198,9 +198,46 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task>
                 taskVo.setDetail(task.getDetail());
                 taskVo.setTitle(task.getTitle());
                 taskVo.setTaskFinishTime(task.getTaskFinishTime());
-
+                if(task.getIsGetPoint() == 1) {
+                    taskVo.setGetPoint(true);
+                }else{
+                    taskVo.setGetPoint(false);
+                }
                 taskFinishedVoList.add(taskVo);
             }
+        }
+        return taskFinishedVoList;
+    }
+
+    @Override
+    public List<TaskFinishedVo> getFinishedNotGetPointTask(String childId) {
+
+//        通过小孩id查询属于他的任务
+        List<Task> tasks = new ArrayList<>();
+
+        QueryWrapper<Task> queryWrapper = new QueryWrapper<>();
+
+        queryWrapper.eq("child_id",childId);
+        queryWrapper.eq("progression",100);
+        queryWrapper.eq("is_get_point",0);
+        tasks = taskMapper.selectList(queryWrapper);
+
+        if(tasks.isEmpty()) {
+            return null;
+        }
+
+        List<TaskFinishedVo> taskFinishedVoList = new ArrayList<>();
+        for( Task task : tasks ){
+                TaskFinishedVo taskVo = new TaskFinishedVo();
+                taskVo.setId(task.getId());
+                taskVo.setType(task.getType());
+                taskVo.setTaskUrl(task.getTaskurl());
+                taskVo.setDetail(task.getDetail());
+                taskVo.setTitle(task.getTitle());
+                taskVo.setTaskFinishTime(task.getTaskFinishTime());
+                taskVo.setGetPoint(false);
+
+                taskFinishedVoList.add(taskVo);
         }
         return taskFinishedVoList;
     }

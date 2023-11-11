@@ -15,10 +15,12 @@ import java.util.List;
 
 public interface TaskService extends IService<Task> {
 
-    boolean isTrueChildSendTask( int childId, int id, String detail, String taskurl);
-    List<TaskVo> getTaskMessage(int childId);
+    boolean isTrueChildSendTask( String childId, int id, String detail, String taskurl);
+    List<TaskVo> getTaskMessage(String childId);
 
     List<TaskFinishedVo> getAllFinishedTaskMessage(String childId);
 
-    List<TaskFinishedVo> getTodayFinishedTaskMessage(int childId);
+    List<TaskFinishedVo> getTodayFinishedTaskMessage(String childId);
+
+    List<TaskFinishedVo> getFinishedNotGetPointTask(String childId);
 }
